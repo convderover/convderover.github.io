@@ -1,0 +1,26 @@
+{
+  "checked_at": "2026-10-27T13:14:37.384596+00:00",
+  "cognito_pkce_browser_validated": true,
+  "browser_inference_validated": true,
+  "browser_review_validated": true,
+  "two_browser_cross_user_jwt_tested": false,
+  "ownership_integration": {
+    "method": "IAM invocation of actual Lambda with two Cognito subjects; not two browser JWT sessions",
+    "own_job_status": 200,
+    "other_user_job_status": 404
+  },
+  "job": {
+    "status": "SUCCEEDED",
+    "review": "needs_review",
+    "result": {
+      "bedrock_invoked": true,
+      "execution_environment": "aws"
+    }
+  },
+  "summary_validation": "Bedrock output failed strict validation; labelled deterministic fallback used. Human review persisted.",
+  "_publication": {
+    "edition": "Public allowlisted derivative",
+    "raw_original": "Retained privately; not included",
+    "note": "Identifiers, resource names, operational URLs, local paths, account plan and balances are excluded. This file is not a byte-identical raw AWS response."
+  }
+}

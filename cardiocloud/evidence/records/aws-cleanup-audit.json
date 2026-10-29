@@ -1,0 +1,77 @@
+{
+  "checked_at": "2026-10-29T08:42:12.155331+00:00",
+  "region": "eu-west-3",
+  "read_only": true,
+  "completed_at": "2026-10-29T08:42:50.109368+00:00",
+  "all_clear": true,
+  "runs": {
+    "audited-run-01": {
+      "resources": [],
+      "errors": [],
+      "terraform_managed_instances": {
+        "application": 0,
+        "guardian": 0
+      }
+    },
+    "audited-run-02": {
+      "resources": [],
+      "errors": [],
+      "terraform_managed_instances": {
+        "application": 0,
+        "guardian": 0
+      }
+    },
+    "audited-run-03": {
+      "resources": [],
+      "errors": [],
+      "terraform_managed_instances": {
+        "application": 0,
+        "guardian": 0
+      }
+    },
+    "audited-run-04": {
+      "resources": [],
+      "errors": [],
+      "terraform_managed_instances": {
+        "application": 0,
+        "guardian": 0
+      }
+    },
+    "audited-run-05": {
+      "resources": [],
+      "errors": [],
+      "terraform_managed_instances": {
+        "application": 0,
+        "guardian": 0
+      }
+    },
+    "audited-run-06": {
+      "resources": [],
+      "errors": [],
+      "terraform_managed_instances": {
+        "application": 0,
+        "guardian": 0
+      }
+    }
+  },
+  "additional_resources": {
+    "lambda.list_functions": [],
+    "events.list_rules": [],
+    "stepfunctions.list_state_machines": [],
+    "logs.describe_log_groups": [],
+    "iam.list_roles": [],
+    "iam.list_policies": [],
+    "dynamodb.list_tables": [],
+    "ec2.describe_vpcs": [],
+    "codebuild.list_projects": [],
+    "cognito-idp.list_user_pools": [],
+    "apigatewayv2.get_apis": []
+  },
+  "errors": [],
+  "scope": "Project resources in eu-west-3 and relevant global services. Does not assert the whole account is empty.",
+  "_publication": {
+    "edition": "Public allowlisted derivative",
+    "raw_original": "Retained privately; not included",
+    "note": "Identifiers, resource names, operational URLs, local paths, account plan and balances are excluded. This file is not a byte-identical raw AWS response."
+  }
+}

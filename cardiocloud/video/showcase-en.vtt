@@ -1,0 +1,22 @@
+WEBVTT
+
+00:00.000 --> 00:05.000
+CardioCloud. From ECG model to traceable cloud workflow.
+
+00:05.000 --> 00:10.000
+Original application detail: inspect a public ECG signal.
+
+00:10.000 --> 00:15.000
+Original prediction and recorded human review.
+
+00:15.000 --> 00:25.000
+Workflow animation: public input, versioned inference, persisted review.
+
+00:25.000 --> 00:35.000
+AWS identity, private processing, model inference and analytics.
+
+00:35.000 --> 00:42.000
+0.918 test macro AUROC. 80 local checks. Six runs cleared in the scoped audit.
+
+00:42.000 --> 00:45.000
+Built. Validated. Safely decommissioned. Research prototype, not for clinical diagnosis.

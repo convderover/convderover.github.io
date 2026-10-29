@@ -1,0 +1,19 @@
+WEBVTT
+
+00:00.000 --> 00:03.000
+CardioCloud. A real public PTB-XL ECG.
+
+00:03.000 --> 00:08.000
+Inspect twelve leads in the actual AWS application.
+
+00:08.000 --> 00:12.000
+Real inference on a SageMaker CPU endpoint.
+
+00:12.000 --> 00:18.000
+Inspect the recorded review controls and persisted needs_review outcome.
+
+00:18.000 --> 00:22.000
+Bedrock output was rejected by validation. Deterministic fallback and human review were retained.
+
+00:22.000 --> 00:25.000
+0.918 test macro AUROC. Real AWS validation and scoped teardown audit. Research only.

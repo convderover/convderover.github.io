@@ -1,0 +1,48 @@
+{
+  "status": "aws_validated_and_removed",
+  "region": "eu-west-3",
+  "controller": {
+    "started_at": "2026-10-27T13:01:16.754269+00:00",
+    "cloud_validation_passed": true,
+    "teardown_completed": false,
+    "image": {
+      "scan_severity_counts": {
+        "HIGH": 3,
+        "MEDIUM": 9,
+        "LOW": 3
+      }
+    },
+    "validation": {
+      "environment": "aws",
+      "internal_workflow_validated": true,
+      "cognito_pkce_interactive_validated": false,
+      "cross_user_live_validated": false,
+      "athena_bytes_scanned": 0,
+      "api_unauthenticated_status": 401,
+      "frontend_status": 200,
+      "no_default_vpc_route": true
+    }
+  },
+  "boundaries": {
+    "checked_at": "2026-10-27T13:14:38.830876+00:00",
+    "preflight_status": 204,
+    "anonymous_api_status": 401,
+    "direct_private_s3_status": 403
+  },
+  "cleanup_recovery": {
+    "completed_at": "2026-10-29T08:42:50.109368+00:00",
+    "teardown_completed": true,
+    "original_controller_report_preserved": true,
+    "original_controller_teardown_failed": true,
+    "all_six_run_states_empty": true,
+    "live_inventories_empty": true,
+    "discovery_errors": []
+  },
+  "teardown_completed": true,
+  "recovery_note": "Generated SageMaker lineage associations blocked original cleanup. Scoped ownership and association checks preceded recovery. The final audit covers six provisioned runs.",
+  "_publication": {
+    "edition": "Public allowlisted derivative",
+    "raw_original": "Retained privately; not included",
+    "note": "Identifiers, resource names, operational URLs, local paths, account plan and balances are excluded. This file is not a byte-identical raw AWS response."
+  }
+}

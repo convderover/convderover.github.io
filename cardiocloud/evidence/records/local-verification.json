@@ -1,0 +1,23 @@
+{
+  "checked_at": "2026-10-29T08:35:31.416955+00:00",
+  "all_passed": true,
+  "complete": true,
+  "python_tests_passed": 80,
+  "check_exit_codes": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "note": "Raw command lines and terminal output are retained privately.",
+  "_publication": {
+    "edition": "Public allowlisted derivative",
+    "raw_original": "Retained privately; not included",
+    "note": "Identifiers, resource names, operational URLs, local paths, account plan and balances are excluded. This file is not a byte-identical raw AWS response."
+  }
+}

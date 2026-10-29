@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="CardioCloud: an end-to-end biomedical AI prototype, built and validated on AWS. An engineering case study in model deployment, private processing and human review.">
+  <meta name="theme-color" content="#0b1320"><title>CardioCloud — Biomedical AI, engineered end to end</title>
+  <link rel="preload" href="assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css"><script src="assets/ecg-trace.js" defer></script><script src="app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#experience">Skip to the case study</a>
+<div class="dark-opening" id="top">
+<header class="site-header wrap">
+  <a class="wordmark" href="#top" aria-label="CardioCloud home">CardioCloud<span aria-hidden="true">.</span></a>
+  <button class="menu-button" aria-controls="navigation" aria-expanded="false">Menu</button>
+  <nav id="navigation" aria-label="Case study"><a href="#experience">Experience</a><a href="#model">Model</a><a href="#architecture">Architecture</a><a href="#evidence">Evidence</a><a class="nav-download" href="CardioCloud-case-study.pdf" download>Case study PDF ↗</a></nav>
+</header>
+<section class="hero wrap" aria-labelledby="project-title">
+  <div class="hero-copy">
+    <p class="eyebrow">ENGINEERING CASE STUDY / 2026</p>
+    <h1 id="project-title">CardioCloud</h1>
+    <p class="hero-line">From ECG model to<br>traceable cloud workflow.</p>
+    <p class="hero-intro">An end-to-end biomedical AI prototype,<br class="desktop-break"> built and validated on AWS.</p>
+    <a class="primary-link" href="#role">Explore the case study <span aria-hidden="true">↗</span></a>
+    <p class="disciplines">Biomedical AI <span>/</span> AWS Cloud Engineering <span>/</span> MLOps</p>
+    <canvas id="signature" width="600" height="74" aria-label="Lead II from public PTB-XL record 00009"></canvas>
+  </div>
+  <div class="hero-product" aria-label="Faithful crops from the AWS application">
+    <button class="image-button waveform-frame" data-zoom="assets/crops/waveform.png" data-caption="ECG interface detail from the original AWS browser capture."><img src="assets/presentation/waveform.png" width="822" height="454" alt="The real CardioCloud ECG interface, showing lead waveforms from public record 00009" fetchpriority="high"></button>
+    <button class="image-button floating-review" data-zoom="assets/crops/human-review.png" data-caption="Original AWS result: human review recorded as needs_review."><img src="assets/presentation/review-actions.png" width="517" height="92" alt="Actual review controls and the persisted needs_review result, enlarged"></button>
+    <span class="capture-note">Actual AWS UI · Enlarged detail · Exposure adjusted</span>
+  </div>
+</section>
+</div>
+<main>
+<section id="role" class="role-section wrap" aria-labelledby="role-title">
+  <div class="role-heading"><p class="section-index">MY CONTRIBUTION</p><h2 id="role-title">My role & engineering decisions</h2><p>AI / ML & Cloud Engineering · End-to-end delivery with AI-assisted tooling.</p></div>
+  <dl class="role-decisions">
+    <div><dt>Model development</dt><dd>Trained and evaluated the PyTorch ECG model using patient-safe PTB-XL folds.</dd></div>
+    <div><dt>AWS architecture</dt><dd>Defined Terraform infrastructure, scoped IAM roles and private processing boundaries.</dd></div>
+    <div><dt>Application integration</dt><dd>Connected Cognito, asynchronous inference, validated summaries and persisted human review.</dd></div>
+    <div><dt>Validation & operations</dt><dd>Verified browser flows, metrics, SQL exports and scoped teardown recovery.</dd></div>
+  </dl>
+</section>
+
+<section id="experience" class="section wrap" aria-labelledby="experience-title">
+  <div class="section-top"><span class="section-index">01 / THE EXPERIENCE</span><p>A public record. A traceable run.</p></div>
+  <h2 id="experience-title">From signal to review.</h2>
+  <ol class="experience-flow">
+    <li class="select-step"><span class="step-label">01 — Select an ECG</span><button class="image-button" data-zoom="assets/crops/selection.png" data-caption="Record selection from the original AWS interface."><img src="assets/presentation/selection.png" width="240" height="124" alt="PTB-XL record 00009 selected in the application" loading="lazy"></button></li>
+    <li class="signal-step"><span class="step-label">02 — Run inference</span><button class="image-button" data-zoom="assets/crops/waveform.png" data-caption="Original waveform display; no signal values or UI states changed."><img src="assets/presentation/waveform.png" width="822" height="454" alt="ECG waveform detail displayed during the real AWS execution" loading="lazy"></button></li>
+    <li class="review-step"><span class="step-label">03 — Review the result</span><button class="image-button" data-zoom="assets/crops/human-review.png" data-caption="Human review was persisted in DynamoDB during the AWS demonstration."><img src="assets/presentation/human-review.png" width="552" height="316" alt="The model summary, review buttons and recorded review" loading="lazy"></button></li>
+  </ol>
+  <p class="fineprint">Actual UI crops, enlarged with a uniform exposure adjustment. Values and states are unchanged. Select an image to inspect its source crop.</p>
+  <div class="film-heading"><h3>The workflow in motion.</h3><span>25 seconds / product cut · Original sound design</span></div>
+  <video class="showcase" controls playsinline preload="none" poster="video/product-cut-thumbnail.webp" aria-label="CardioCloud product showcase: edited actual screenshots and records">
+    <source src="video/CardioCloud-product-cut.mp4" type="video/mp4"><track kind="captions" src="video/product-cut-en.vtt" srclang="en" label="English descriptions">
+    <p><a href="video/CardioCloud-product-cut.mp4">Download the product showcase</a></p>
+  </video>
+  <details class="extended-film"><summary>Watch the extended 45-second showcase</summary><video controls playsinline preload="none" poster="hero.webp" aria-label="Extended 45-second showcase"><source src="video/CardioCloud-showcase.mp4" type="video/mp4"><track kind="captions" src="video/showcase-en.vtt" srclang="en" label="English descriptions"></video><p class="fineprint">The extended version is silent.</p></details>
+
+  <p class="fineprint">Edited from actual screenshots and records. Not a continuous live deployment recording. Original sound design; no voiceover.</p>
+</section>
+
+<section id="model" class="model-section section" aria-labelledby="model-title"><div class="wrap">
+  <div class="section-top"><span class="section-index">02 / MODEL & RESULTS</span><a href="evidence/records/report.json">View evaluation data ↗</a></div>
+  <h2 id="model-title">Measured on held-out data.</h2>
+  <div class="model-layout"><div class="macro"><strong>0.918</strong><span>Macro AUROC</span><p>Independent PTB-XL test set<br><b>2,158 records</b></p></div><figure class="class-chart"><img src="assets/class-auroc.svg" width="1395" height="825" alt="Test AUROC: NORM 0.937, STTC 0.929, CD 0.917, HYP 0.904, MI 0.902" loading="lazy"><table class="mobile-class-metrics"><caption>Test AUROC by class</caption><thead><tr><th scope="col">Class</th><th scope="col">AUROC</th></tr></thead><tbody><tr><th scope="row">NORM</th><td>0.937</td></tr><tr><th scope="row">STTC</th><td>0.929</td></tr><tr><th scope="row">CD</th><td>0.917</td></tr><tr><th scope="row">HYP</th><td>0.904</td></tr><tr><th scope="row">MI</th><td>0.902</td></tr></tbody></table><figcaption>Held-out test discrimination. Source: the original evaluation report.</figcaption></figure></div>
+  <ol class="model-pipeline"><li><strong>Public ECG data</strong><span>PTB-XL v1.0.3</span></li><li><strong>PyTorch model</strong><span>Patient-safe partitions</span></li><li><strong>Versioned artifact</strong><span>Reproducible checkpoint</span></li><li><strong>AWS inference</strong><span>SageMaker CPU</span></li></ol>
+</div></section>
+
+<section id="architecture" class="architecture-section section" aria-labelledby="architecture-title"><div class="wrap">
+  <div class="section-top"><span class="section-index">03 / AWS ARCHITECTURE</span><span>Paris / eu-west-3</span></div>
+  <h2 id="architecture-title">A system, end to end.</h2>
+  <p class="section-deck">Identity, bounded processing, inference and a review that persists.</p>
+  <ol class="architecture-flow">
+    <li><p class="group-label">Frontend & Identity</p><h3>Web + sign-in</h3><ul><li><img src="assets/icons/cloudfront.png" alt="" width="42" height="42">CloudFront</li><li><img src="assets/icons/cognito.png" alt="" width="42" height="42">Cognito / PKCE</li><li><img src="assets/icons/api.png" alt="" width="42" height="42">API Gateway</li></ul></li>
+    <li><p class="group-label">Private Processing</p><h3>Bounded jobs</h3><ul><li><img src="assets/icons/lambda.png" alt="" width="42" height="42">Lambda</li><li><img src="assets/icons/sfn.png" alt="" width="42" height="42">Step Functions</li></ul></li>
+    <li><p class="group-label">ML & Generative AI</p><h3>Model + summary</h3><ul><li><img src="assets/icons/sagemaker.png" alt="" width="42" height="42">SageMaker CPU</li><li><img src="assets/icons/bedrock.png" alt="" width="42" height="42">Bedrock + checks</li></ul></li>
+    <li><p class="group-label">Persistence & Analytics</p><h3>Review + retain</h3><ul><li><img src="assets/icons/dynamodb.png" alt="" width="42" height="42">DynamoDB</li><li><img src="assets/icons/s3.png" alt="" width="42" height="42">S3 / Parquet</li><li><img src="assets/icons/athena.png" alt="" width="42" height="42">Athena</li></ul></li>
+  </ol>
+  <div class="architecture-bottom"><p>Human review stays in the loop.</p><a href="diagrams/architecture-detailed.svg">Explore the technical diagram ↗</a></div>
+  <p class="fineprint">Processing uses private subnets and service endpoints. Managed services are shown logically, not as resources hosted inside the VPC.</p>
+</div></section>
+
+<section id="evidence" class="evidence-section section" aria-labelledby="evidence-title"><div class="wrap">
+  <div class="section-top"><span class="section-index">04 / VERIFIED ENGINEERING</span><a href="evidence/records/aws-deployment.json">Deployment record ↗</a></div>
+  <h2 id="evidence-title">Proof across the lifecycle.</h2>
+  <dl class="proof-outcomes"><div><dt>AWS deployed</dt><dd>Real infrastructure validated in eu-west-3.</dd></div><div><dt>80 checks</dt><dd>Local verification passed.</dd></div><div><dt>6/6 cleared</dt><dd>Scoped post-teardown audit.</dd></div></dl>
+  <div class="proof-detail"><figure><button class="image-button" data-zoom="assets/crops/human-review.png" data-caption="Original captured AWS review result."><img src="assets/presentation/human-review.png" width="552" height="316" alt="Actual captured review, recorded as needs_review" loading="lazy"></button><figcaption>Browser inference and review validated / 27 October 2026</figcaption></figure><div class="record-excerpts"><a href="evidence/records/aws-deployment.json">aws-deployment.json ↗</a><code>"cloud_validation_passed": true</code><a href="evidence/records/aws-cleanup-audit.json">aws-cleanup-audit.json ↗</a><code>"all_clear": true</code><p>CodeBuild · ECR · SageMaker · Athena</p></div></div>
+</div></section>
+
+<section class="responsible-section section" aria-labelledby="responsible-title"><div class="wrap">
+  <span class="section-index">05 / RESPONSIBLE ENGINEERING</span>
+  <h2 id="responsible-title">Built.<br>Validated.<br><span>Safely decommissioned.</span></h2>
+  <p class="responsible-deck">Evidence retained. Infrastructure retired.</p>
+  
+  <div class="engineering-decision"><p class="section-index">A DECISION THAT MATTERS</p><h3>Validate before display.</h3><ol><li><strong>Strict Bedrock checks</strong><span>Reject generated output that fails the schema or evidence checks.</span></li><li><strong>Deterministic fallback</strong><span>Return an explicit, traceable summary when validation fails.</span></li><li><strong>Required human review</strong><span>Keep the final decision with the reviewer and persist the result.</span></li></ol><p class="decision-outcome">Observed in the AWS demonstration: Bedrock was invoked, its output was rejected, the labelled fallback was shown and human review was recorded.</p></div>
+<ol class="lifecycle"><li><strong>Model training</strong><time datetime="2026-10-27">27 Oct 2026</time></li><li><strong>AWS deployment</strong><time datetime="2026-10-27">27 Oct 2026</time></li><li><strong>Validation</strong><time datetime="2026-10-27">27 Oct 2026</time></li><li><strong>Evidence collection</strong><time datetime="2026-10-27">27 Oct 2026</time></li><li><strong>Teardown audit</strong><time datetime="2026-10-29">29 Oct 2026</time></li></ol>
+  <p class="clinical-note">Research prototype. Not intended for clinical diagnosis.</p>
+  <details class="technical-details"><summary>Technical notes, evidence and limitations <span aria-hidden="true">+</span></summary><div class="technical-body">
+    <p>The PyTorch model was trained locally on an NVIDIA RTX 4060. Official patient-safe PTB-XL folds were used for training, validation and independent testing. The rounded headline comes from test macro AUROC <b>0.9178536552</b>.</p>
+    <p>Cognito authorization-code sign-in with PKCE, real CPU inference on SageMaker and a human review persisted in DynamoDB were verified in the browser. Bedrock was invoked, but generated output failed strict validation; the labelled deterministic fallback was used. Parquet output was queried with Athena.</p>
+    <p>Final teardown required recovery after generated SageMaker lineage associations blocked the original cleanup. The scoped recovery inspected ownership and incoming/outgoing associations before deletion. The final audit on 29 October found all six application/guardian states empty and no project resources or discovery errors within its scope. This was not a claim that the initial teardown was flawless.</p>
+    <ul><li>No clinical validation; one-AZ demonstration.</li><li>Three HIGH ECR image findings remained for remediation before production.</li><li>Cross-user ownership used IAM invocation with two Cognito subjects, not two browser JWT sessions.</li><li>No load/SLO testing or model update/rollback validation.</li><li>Cleanup is a scoped audit, not a guaranteed monetary cap. Available AWS credits are not treated as project cost.</li></ul>
+    <p>Public evidence files are allowlisted derivatives. Account identifiers, resource names, endpoints, Cognito client identifiers and billing information are excluded. Raw evidence remains private.</p><div class="evidence-links"><a href="README.md">Technical README ↗</a><a href="diagrams/architecture-detailed.pdf">Detailed architecture PDF ↗</a><a href="evidence/records/aws-browser-validation.json">Browser acceptance ↗</a><a href="evidence/records/aws-operations.json">Operations & SQL ↗</a><a href="evidence/records/local-verification.json">Local verification ↗</a><a href="evidence/records/aws-cleanup-audit.json">Final cleanup audit ↗</a><a href="evidence/README.md">Public evidence policy ↗</a><a href="assets/crops/waveform.png">Unadjusted ECG crop ↗</a><a href="assets/crops/human-review.png">Unadjusted review crop ↗</a></div>
+  </div></details>
+  <div class="closing-links"><a class="text-link" href="CardioCloud-case-study.pdf" download>Download the case study ↗</a><a class="text-link" href="diagrams/architecture-simplified.svg" download>Get the architecture SVG ↗</a></div>
+</div></section>
+</main>
+<footer class="site-footer wrap"><p>CardioCloud / An engineering case study</p><p>PTB-XL: Wagner et al. · <a href="https://doi.org/10.13026/kfzx-aw45">v1.0.3</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p><p>AWS icons and Inter font: <a href="ATTRIBUTION.md">attribution</a>.</p></footer>
+<dialog id="image-viewer" aria-labelledby="viewer-caption"><button class="viewer-close" aria-label="Close image">Close ×</button><img id="viewer-image" alt=""><p id="viewer-caption"></p></dialog>
+</body></html>

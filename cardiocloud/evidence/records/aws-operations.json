@@ -1,0 +1,32 @@
+{
+  "athena_query": {
+    "status": "SUCCEEDED",
+    "statistics": {
+      "EngineExecutionTimeInMillis": 412,
+      "DataScannedInBytes": 283,
+      "TotalExecutionTimeInMillis": 529,
+      "QueryQueueTimeInMillis": 59,
+      "ServicePreProcessingTimeInMillis": 35,
+      "QueryPlanningTimeInMillis": 61,
+      "ServiceProcessingTimeInMillis": 23,
+      "ResultReuseInformation": {
+        "ReusedPreviousResult": false
+      }
+    },
+    "statement_type": "DML"
+  },
+  "builds": [
+    {
+      "status": "SUCCEEDED",
+      "start": "2026-10-27T13:06:46.587000+00:00",
+      "end": "2026-10-27T13:08:12.389000+00:00"
+    }
+  ],
+  "worker_report_count": 2,
+  "note": "SQL text, database/workgroup names, query identifiers, storage locations and raw worker logs are private.",
+  "_publication": {
+    "edition": "Public allowlisted derivative",
+    "raw_original": "Retained privately; not included",
+    "note": "Identifiers, resource names, operational URLs, local paths, account plan and balances are excluded. This file is not a byte-identical raw AWS response."
+  }
+}

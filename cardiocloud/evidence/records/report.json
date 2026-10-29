@@ -1,0 +1,494 @@
+{
+  "validation": {
+    "records": 2146,
+    "macro_auroc": 0.9211698644075756,
+    "macro_f1": 0.7409232605308964,
+    "per_class": {
+      "NORM": {
+        "support_positive": 955,
+        "records": 2146,
+        "auroc": 0.9424356319868472,
+        "auprc": 0.9243804222725643,
+        "f1": 0.8605817452357071,
+        "brier": 0.09591709077358246,
+        "ece_10_bins": 0.027496350934348813
+      },
+      "MI": {
+        "support_positive": 540,
+        "records": 2146,
+        "auroc": 0.9080392970803929,
+        "auprc": 0.7891858743111794,
+        "f1": 0.7171109200343938,
+        "brier": 0.10148116946220398,
+        "ece_10_bins": 0.011084746053825999
+      },
+      "STTC": {
+        "support_positive": 528,
+        "records": 2146,
+        "auroc": 0.9334370434880324,
+        "auprc": 0.7884617951165293,
+        "f1": 0.7611408199643493,
+        "brier": 0.08920036256313324,
+        "ece_10_bins": 0.021147646752029018
+      },
+      "CD": {
+        "support_positive": 495,
+        "records": 2146,
+        "auroc": 0.9220001345985598,
+        "auprc": 0.8463870438455088,
+        "f1": 0.7685393258426966,
+        "brier": 0.08453328907489777,
+        "ece_10_bins": 0.057250739480581445
+      },
+      "HYP": {
+        "support_positive": 268,
+        "records": 2146,
+        "auroc": 0.8999372148840462,
+        "auprc": 0.6523050329034754,
+        "f1": 0.5972434915773354,
+        "brier": 0.06808105856180191,
+        "ece_10_bins": 0.010679994435513953
+      }
+    }
+  },
+  "test": {
+    "records": 2158,
+    "macro_auroc": 0.9178536552499468,
+    "macro_f1": 0.7223153391989443,
+    "per_class": {
+      "NORM": {
+        "support_positive": 963,
+        "records": 2158,
+        "auroc": 0.9370134299630253,
+        "auprc": 0.9124778372828926,
+        "f1": 0.84904738641915,
+        "brier": 0.10109928995370865,
+        "ece_10_bins": 0.032969630187838245
+      },
+      "MI": {
+        "support_positive": 550,
+        "records": 2158,
+        "auroc": 0.9023383084577115,
+        "auprc": 0.7857605522497322,
+        "f1": 0.7006802721088435,
+        "brier": 0.1047385036945343,
+        "ece_10_bins": 0.01618081214384584
+      },
+      "STTC": {
+        "support_positive": 521,
+        "records": 2158,
+        "auroc": 0.9291515658178142,
+        "auprc": 0.8108916001174309,
+        "f1": 0.7534372135655362,
+        "brier": 0.08834672719240189,
+        "ece_10_bins": 0.019903578554678007
+      },
+      "CD": {
+        "support_positive": 496,
+        "records": 2158,
+        "auroc": 0.9171531093513451,
+        "auprc": 0.8310822512016696,
+        "f1": 0.7159353348729792,
+        "brier": 0.08685172349214554,
+        "ece_10_bins": 0.047893158262863104
+      },
+      "HYP": {
+        "support_positive": 262,
+        "records": 2158,
+        "auroc": 0.9036118626598383,
+        "auprc": 0.6725749930678769,
+        "f1": 0.5924764890282131,
+        "brier": 0.06377178430557251,
+        "ece_10_bins": 0.009869601236582079
+      }
+    }
+  },
+  "subgroups": {
+    "sex_0": {
+      "records": 1110,
+      "macro_auroc": 0.9272469161629615,
+      "macro_f1": 0.7398168613916406,
+      "per_class": {
+        "NORM": {
+          "support_positive": 516,
+          "records": 1110,
+          "auroc": 0.9437690862109468,
+          "auprc": 0.9261724602312994,
+          "f1": 0.8702851885924563,
+          "brier": 0.09375724196434021,
+          "ece_10_bins": 0.035622721793851606
+        },
+        "MI": {
+          "support_positive": 297,
+          "records": 1110,
+          "auroc": 0.9142511627136474,
+          "auprc": 0.8165472885421243,
+          "f1": 0.7258566978193146,
+          "brier": 0.09962382912635803,
+          "ece_10_bins": 0.023145514349075587
+        },
+        "STTC": {
+          "support_positive": 229,
+          "records": 1110,
+          "auroc": 0.9437320631081194,
+          "auprc": 0.8244812735053495,
+          "f1": 0.7685774946921444,
+          "brier": 0.07192058116197586,
+          "ece_10_bins": 0.02201879397034645
+        },
+        "CD": {
+          "support_positive": 266,
+          "records": 1110,
+          "auroc": 0.9248298471296725,
+          "auprc": 0.8540662592358849,
+          "f1": 0.7404255319148936,
+          "brier": 0.0849003717303276,
+          "ece_10_bins": 0.05475885366500766
+        },
+        "HYP": {
+          "support_positive": 135,
+          "records": 1110,
+          "auroc": 0.9096524216524216,
+          "auprc": 0.6677817639984497,
+          "f1": 0.593939393939394,
+          "brier": 0.0649646744132042,
+          "ece_10_bins": 0.010916125403532574
+        }
+      }
+    },
+    "sex_1": {
+      "records": 1048,
+      "macro_auroc": 0.9071465436306048,
+      "macro_f1": 0.7030250493334943,
+      "per_class": {
+        "NORM": {
+          "support_positive": 447,
+          "records": 1048,
+          "auroc": 0.9292082174749765,
+          "auprc": 0.8977371578594242,
+          "f1": 0.825,
+          "brier": 0.10887569934129715,
+          "ece_10_bins": 0.03858562209287957
+        },
+        "MI": {
+          "support_positive": 253,
+          "records": 1048,
+          "auroc": 0.8883685087130533,
+          "auprc": 0.7479344346085093,
+          "f1": 0.6704119850187266,
+          "brier": 0.11015576124191284,
+          "ece_10_bins": 0.02162306341307081
+        },
+        "STTC": {
+          "support_positive": 292,
+          "records": 1048,
+          "auroc": 0.9118694281365515,
+          "auprc": 0.8008263936246647,
+          "f1": 0.7419354838709677,
+          "brier": 0.10574464499950409,
+          "ece_10_bins": 0.03280551150043047
+        },
+        "CD": {
+          "support_positive": 230,
+          "records": 1048,
+          "auroc": 0.9088710534708196,
+          "auprc": 0.805383929906293,
+          "f1": 0.6868686868686869,
+          "brier": 0.088918536901474,
+          "ece_10_bins": 0.04196747031617369
+        },
+        "HYP": {
+          "support_positive": 127,
+          "records": 1048,
+          "auroc": 0.8974155103576221,
+          "auprc": 0.6796714538662911,
+          "f1": 0.5909090909090909,
+          "brier": 0.06250832974910736,
+          "ece_10_bins": 0.015959899886760092
+        }
+      }
+    },
+    "age_lt65": {
+      "records": 1144,
+      "macro_auroc": 0.9147207648785429,
+      "macro_f1": 0.6750499812464671,
+      "per_class": {
+        "NORM": {
+          "support_positive": 724,
+          "records": 1144,
+          "auroc": 0.9042554590897132,
+          "auprc": 0.9329122669762568,
+          "f1": 0.8795741849634066,
+          "brier": 0.11895333230495453,
+          "ece_10_bins": 0.06225674748388152
+        },
+        "MI": {
+          "support_positive": 171,
+          "records": 1144,
+          "auroc": 0.9154961744889802,
+          "auprc": 0.7436653095614816,
+          "f1": 0.636604774535809,
+          "brier": 0.07070902734994888,
+          "ece_10_bins": 0.021082722677986
+        },
+        "STTC": {
+          "support_positive": 171,
+          "records": 1144,
+          "auroc": 0.9460401603529206,
+          "auprc": 0.7881946308453991,
+          "f1": 0.7182320441988951,
+          "brier": 0.059708189219236374,
+          "ece_10_bins": 0.026701154510516648
+        },
+        "CD": {
+          "support_positive": 177,
+          "records": 1144,
+          "auroc": 0.8918549418961316,
+          "auprc": 0.7447896735988903,
+          "f1": 0.627177700348432,
+          "brier": 0.07409422844648361,
+          "ece_10_bins": 0.0434826205946974
+        },
+        "HYP": {
+          "support_positive": 78,
+          "records": 1144,
+          "auroc": 0.9159570885649686,
+          "auprc": 0.5621345547906584,
+          "f1": 0.5136612021857924,
+          "brier": 0.042521484196186066,
+          "ece_10_bins": 0.008369878243811272
+        }
+      }
+    },
+    "age_65_to89": {
+      "records": 982,
+      "macro_auroc": 0.9026384198915374,
+      "macro_f1": 0.7276965178442187,
+      "per_class": {
+        "NORM": {
+          "support_positive": 239,
+          "records": 982,
+          "auroc": 0.9425995483649346,
+          "auprc": 0.8324533958080202,
+          "f1": 0.7647058823529411,
+          "brier": 0.08352787047624588,
+          "ece_10_bins": 0.023703579678979764
+        },
+        "MI": {
+          "support_positive": 364,
+          "records": 982,
+          "auroc": 0.8681540950958426,
+          "auprc": 0.8049049388084896,
+          "f1": 0.7284595300261096,
+          "brier": 0.14259222149848938,
+          "ece_10_bins": 0.04081812309757512
+        },
+        "STTC": {
+          "support_positive": 331,
+          "records": 982,
+          "auroc": 0.898269452991215,
+          "auprc": 0.8170604538024692,
+          "f1": 0.7647907647907648,
+          "brier": 0.12110684812068939,
+          "ece_10_bins": 0.037935022917213845
+        },
+        "CD": {
+          "support_positive": 303,
+          "records": 982,
+          "auroc": 0.9220509679833963,
+          "auprc": 0.8669945421848776,
+          "f1": 0.7518248175182481,
+          "brier": 0.10169361531734467,
+          "ece_10_bins": 0.05597518358660327
+        },
+        "HYP": {
+          "support_positive": 179,
+          "records": 982,
+          "auroc": 0.8821180350222977,
+          "auprc": 0.7179320911848002,
+          "f1": 0.6287015945330297,
+          "brier": 0.0878031924366951,
+          "ece_10_bins": 0.019497297664387285
+        }
+      }
+    }
+  },
+  "test_uncalibrated": {
+    "records": 2158,
+    "macro_auroc": 0.9178536552499468,
+    "macro_f1": 0.7215090829882225,
+    "per_class": {
+      "NORM": {
+        "support_positive": 963,
+        "records": 2158,
+        "auroc": 0.9370134299630253,
+        "auprc": 0.9124778372828926,
+        "f1": 0.8482186432406051,
+        "brier": 0.10088105499744415,
+        "ece_10_bins": 0.029263538671821437
+      },
+      "MI": {
+        "support_positive": 550,
+        "records": 2158,
+        "auroc": 0.9023383084577115,
+        "auprc": 0.7857605522497322,
+        "f1": 0.6982248520710059,
+        "brier": 0.10465995222330093,
+        "ece_10_bins": 0.00956394110803697
+      },
+      "STTC": {
+        "support_positive": 521,
+        "records": 2158,
+        "auroc": 0.9291515658178142,
+        "auprc": 0.8108916001174309,
+        "f1": 0.7527472527472527,
+        "brier": 0.08839662373065948,
+        "ece_10_bins": 0.022609038167979233
+      },
+      "CD": {
+        "support_positive": 496,
+        "records": 2158,
+        "auroc": 0.9171531093513451,
+        "auprc": 0.8310822512016696,
+        "f1": 0.7161066048667439,
+        "brier": 0.0871911346912384,
+        "ece_10_bins": 0.05140820952292887
+      },
+      "HYP": {
+        "support_positive": 262,
+        "records": 2158,
+        "auroc": 0.9036118626598383,
+        "auprc": 0.6725749930678769,
+        "f1": 0.5922480620155038,
+        "brier": 0.06376373022794724,
+        "ece_10_bins": 0.010876690229164494
+      }
+    }
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.38771484569827125,
+      "validation_loss": 0.3412851095199585,
+      "elapsed_seconds": 1.39
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.3003699776174417,
+      "validation_loss": 0.30576518177986145,
+      "elapsed_seconds": 2.24
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.28556484439924584,
+      "validation_loss": 0.30306753516197205,
+      "elapsed_seconds": 3.06
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.27419591917475655,
+      "validation_loss": 0.2960048317909241,
+      "elapsed_seconds": 3.92
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.2672837191998069,
+      "validation_loss": 0.29940909147262573,
+      "elapsed_seconds": 4.77
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.26338067117022046,
+      "validation_loss": 0.2948448061943054,
+      "elapsed_seconds": 5.59
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.2588865200975048,
+      "validation_loss": 0.28632426261901855,
+      "elapsed_seconds": 6.44
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.25153550294353,
+      "validation_loss": 0.2991536557674408,
+      "elapsed_seconds": 7.25
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.2467774821083937,
+      "validation_loss": 0.2993563711643219,
+      "elapsed_seconds": 8.08
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.2423981164595974,
+      "validation_loss": 0.28640416264533997,
+      "elapsed_seconds": 8.91
+    },
+    {
+      "epoch": 11,
+      "train_loss": 0.23759525669599646,
+      "validation_loss": 0.28905850648880005,
+      "elapsed_seconds": 9.74
+    },
+    {
+      "epoch": 12,
+      "train_loss": 0.2333092641697001,
+      "validation_loss": 0.2914968430995941,
+      "elapsed_seconds": 10.58
+    },
+    {
+      "epoch": 13,
+      "train_loss": 0.22854581297333562,
+      "validation_loss": 0.29232922196388245,
+      "elapsed_seconds": 11.41
+    },
+    {
+      "epoch": 14,
+      "train_loss": 0.22433670943797523,
+      "validation_loss": 0.2876742482185364,
+      "elapsed_seconds": 12.31
+    },
+    {
+      "epoch": 15,
+      "train_loss": 0.21922964602708817,
+      "validation_loss": 0.29414093494415283,
+      "elapsed_seconds": 13.16
+    },
+    {
+      "epoch": 16,
+      "train_loss": 0.21405265168912374,
+      "validation_loss": 0.2996629476547241,
+      "elapsed_seconds": 14.0
+    },
+    {
+      "epoch": 17,
+      "train_loss": 0.20714572483479088,
+      "validation_loss": 0.3205220103263855,
+      "elapsed_seconds": 14.8
+    },
+    {
+      "epoch": 18,
+      "train_loss": 0.2011135487414118,
+      "validation_loss": 0.3272881507873535,
+      "elapsed_seconds": 15.64
+    }
+  ],
+  "training_seconds": 16.19,
+  "device": "NVIDIA GeForce RTX 4060",
+  "seed": 42,
+  "torch_version": "2.11.0+cu128",
+  "temperature": 0.9622727632522583,
+  "limitations": [
+    "Internal historical cohort only",
+    "No external clinical validation",
+    "Quality indicators are engineering heuristics",
+    "Ages above 89 are masked in source data"
+  ],
+  "_publication": {
+    "edition": "Public allowlisted derivative",
+    "raw_original": "Retained privately; not included",
+    "note": "Identifiers, resource names, operational URLs, local paths, account plan and balances are excluded. This file is not a byte-identical raw AWS response."
+  }
+}
