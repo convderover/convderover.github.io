@@ -5,7 +5,7 @@
   <meta name="description" content="CardioCloud: an end-to-end biomedical AI prototype, built and validated on AWS. An engineering case study in model deployment, private processing and human review.">
   <meta name="theme-color" content="#0b1320"><title>CardioCloud — Biomedical AI, engineered end to end</title>
   <link rel="preload" href="assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css"><script src="assets/ecg-trace.js" defer></script><script src="app.js" defer></script>
+  <link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="interaction.css"><script src="../assets/vendor/motion-14.12.0.js" defer></script><script src="assets/ecg-trace.js" defer></script><script src="app.js?v=20261110-lab" defer></script>
 </head>
 <body>
 <a class="skip" href="#experience">Skip to the case study</a>
@@ -13,7 +13,7 @@
 <header class="site-header wrap">
   <a class="wordmark" href="#top" aria-label="CardioCloud home">CardioCloud<span aria-hidden="true">.</span></a>
   <button class="menu-button" aria-controls="navigation" aria-expanded="false">Menu</button>
-  <nav id="navigation" aria-label="Case study"><a href="#experience">Experience</a><a href="#model">Model</a><a href="#architecture">Architecture</a><a href="#evidence">Evidence</a><a class="nav-download" href="CardioCloud-case-study.pdf" download>Case study PDF ↗</a></nav>
+  <nav id="navigation" aria-label="Case study"><a href="../">← Portfolio</a><a href="#experience">Experience</a><a href="#model">Model</a><a href="#architecture">Architecture</a><a href="#evidence">Evidence</a><a class="nav-download" href="CardioCloud-case-study.pdf" download>Case study PDF ↗</a></nav>
 </header>
 <section class="hero wrap" aria-labelledby="project-title">
   <div class="hero-copy">
@@ -23,7 +23,7 @@
     <p class="hero-intro">An end-to-end biomedical AI prototype,<br class="desktop-break"> built and validated on AWS.</p>
     <a class="primary-link" href="#role">Explore the case study <span aria-hidden="true">↗</span></a>
     <p class="disciplines">Biomedical AI <span>/</span> AWS Cloud Engineering <span>/</span> MLOps</p>
-    <canvas id="signature" width="600" height="74" aria-label="Lead II from public PTB-XL record 00009"></canvas>
+    <canvas id="signature" width="600" height="74" aria-label="Lead II from public PTB-XL record 00009"></canvas><div class="signature-tools" role="group" aria-label="ECG visualisation gain"><span>PUBLIC SIGNAL / II</span><button type="button" data-signal-gain="1" aria-pressed="true">×1</button><button type="button" data-signal-gain="2" aria-pressed="false">×2</button></div>
   </div>
   <div class="hero-product" aria-label="Faithful crops from the AWS application">
     <button class="image-button waveform-frame" data-zoom="assets/crops/waveform.png" data-caption="ECG interface detail from the original AWS browser capture."><img src="assets/presentation/waveform.png" width="822" height="454" alt="The real CardioCloud ECG interface, showing lead waveforms from public record 00009" fetchpriority="high"></button>
@@ -36,10 +36,10 @@
 <section id="role" class="role-section wrap" aria-labelledby="role-title">
   <div class="role-heading"><p class="section-index">MY CONTRIBUTION</p><h2 id="role-title">My role & engineering decisions</h2><p>AI / ML & Cloud Engineering · End-to-end delivery with AI-assisted tooling.</p></div>
   <dl class="role-decisions">
-    <div><dt>Model development</dt><dd>Trained and evaluated the PyTorch ECG model using patient-safe PTB-XL folds.</dd></div>
-    <div><dt>AWS architecture</dt><dd>Defined Terraform infrastructure, scoped IAM roles and private processing boundaries.</dd></div>
-    <div><dt>Application integration</dt><dd>Connected Cognito, asynchronous inference, validated summaries and persisted human review.</dd></div>
-    <div><dt>Validation & operations</dt><dd>Verified browser flows, metrics, SQL exports and scoped teardown recovery.</dd></div>
+    <div><dt>Model development</dt><dd><details class="role-fold"><summary>Explore decision <span aria-hidden="true">+</span></summary><p>Trained and evaluated the PyTorch ECG model using patient-safe PTB-XL folds.</p></details></dd></div>
+    <div><dt>AWS architecture</dt><dd><details class="role-fold"><summary>Explore decision <span aria-hidden="true">+</span></summary><p>Defined Terraform infrastructure, scoped IAM roles and private processing boundaries.</p></details></dd></div>
+    <div><dt>Application integration</dt><dd><details class="role-fold"><summary>Explore decision <span aria-hidden="true">+</span></summary><p>Connected Cognito, asynchronous inference, validated summaries and persisted human review.</p></details></dd></div>
+    <div><dt>Validation & operations</dt><dd><details class="role-fold"><summary>Explore decision <span aria-hidden="true">+</span></summary><p>Verified browser flows, metrics, SQL exports and scoped teardown recovery.</p></details></dd></div>
   </dl>
 </section>
 
@@ -72,12 +72,12 @@
 <section id="architecture" class="architecture-section section" aria-labelledby="architecture-title"><div class="wrap">
   <div class="section-top"><span class="section-index">03 / AWS ARCHITECTURE</span><span>Paris / eu-west-3</span></div>
   <h2 id="architecture-title">A system, end to end.</h2>
-  <p class="section-deck">Identity, bounded processing, inference and a review that persists.</p>
+  <p class="section-deck">Four layers. Tap to explore.</p>
   <ol class="architecture-flow">
-    <li><p class="group-label">Frontend & Identity</p><h3>Web + sign-in</h3><ul><li><img src="assets/icons/cloudfront.png" alt="" width="42" height="42">CloudFront</li><li><img src="assets/icons/cognito.png" alt="" width="42" height="42">Cognito / PKCE</li><li><img src="assets/icons/api.png" alt="" width="42" height="42">API Gateway</li></ul></li>
-    <li><p class="group-label">Private Processing</p><h3>Bounded jobs</h3><ul><li><img src="assets/icons/lambda.png" alt="" width="42" height="42">Lambda</li><li><img src="assets/icons/sfn.png" alt="" width="42" height="42">Step Functions</li></ul></li>
-    <li><p class="group-label">ML & Generative AI</p><h3>Model + summary</h3><ul><li><img src="assets/icons/sagemaker.png" alt="" width="42" height="42">SageMaker CPU</li><li><img src="assets/icons/bedrock.png" alt="" width="42" height="42">Bedrock + checks</li></ul></li>
-    <li><p class="group-label">Persistence & Analytics</p><h3>Review + retain</h3><ul><li><img src="assets/icons/dynamodb.png" alt="" width="42" height="42">DynamoDB</li><li><img src="assets/icons/s3.png" alt="" width="42" height="42">S3 / Parquet</li><li><img src="assets/icons/athena.png" alt="" width="42" height="42">Athena</li></ul></li>
+    <li><details class="architecture-layer"><summary><span class="group-label">Frontend & Identity</span><h3>Web + sign-in</h3><span class="layer-toggle" aria-hidden="true">+</span></summary><ul><li><img src="assets/icons/cloudfront.png" alt="" width="42" height="42">CloudFront</li><li><img src="assets/icons/cognito.png" alt="" width="42" height="42">Cognito / PKCE</li><li><img src="assets/icons/api.png" alt="" width="42" height="42">API Gateway</li></ul></details></li>
+    <li><details class="architecture-layer"><summary><span class="group-label">Private Processing</span><h3>Bounded jobs</h3><span class="layer-toggle" aria-hidden="true">+</span></summary><ul><li><img src="assets/icons/lambda.png" alt="" width="42" height="42">Lambda</li><li><img src="assets/icons/sfn.png" alt="" width="42" height="42">Step Functions</li></ul></details></li>
+    <li><details class="architecture-layer"><summary><span class="group-label">ML & Generative AI</span><h3>Model + summary</h3><span class="layer-toggle" aria-hidden="true">+</span></summary><ul><li><img src="assets/icons/sagemaker.png" alt="" width="42" height="42">SageMaker CPU</li><li><img src="assets/icons/bedrock.png" alt="" width="42" height="42">Bedrock + checks</li></ul></details></li>
+    <li><details class="architecture-layer"><summary><span class="group-label">Persistence & Analytics</span><h3>Review + retain</h3><span class="layer-toggle" aria-hidden="true">+</span></summary><ul><li><img src="assets/icons/dynamodb.png" alt="" width="42" height="42">DynamoDB</li><li><img src="assets/icons/s3.png" alt="" width="42" height="42">S3 / Parquet</li><li><img src="assets/icons/athena.png" alt="" width="42" height="42">Athena</li></ul></details></li>
   </ol>
   <div class="architecture-bottom"><p>Human review stays in the loop.</p><a href="diagrams/architecture-detailed.svg">Explore the technical diagram ↗</a></div>
   <p class="fineprint">Processing uses private subnets and service endpoints. Managed services are shown logically, not as resources hosted inside the VPC.</p>
@@ -95,7 +95,7 @@
   <h2 id="responsible-title">Built.<br>Validated.<br><span>Safely decommissioned.</span></h2>
   <p class="responsible-deck">Evidence retained. Infrastructure retired.</p>
   
-  <div class="engineering-decision"><p class="section-index">A DECISION THAT MATTERS</p><h3>Validate before display.</h3><ol><li><strong>Strict Bedrock checks</strong><span>Reject generated output that fails the schema or evidence checks.</span></li><li><strong>Deterministic fallback</strong><span>Return an explicit, traceable summary when validation fails.</span></li><li><strong>Required human review</strong><span>Keep the final decision with the reviewer and persist the result.</span></li></ol><p class="decision-outcome">Observed in the AWS demonstration: Bedrock was invoked, its output was rejected, the labelled fallback was shown and human review was recorded.</p></div>
+  <div class="engineering-decision"><p class="section-index">A DECISION THAT MATTERS</p><h3>Validate before display.</h3><ol><li><strong>Strict Bedrock checks</strong><span>Reject generated output that fails the schema or evidence checks.</span></li><li><strong>Deterministic fallback</strong><span>Return an explicit, traceable summary when validation fails.</span></li><li><strong>Required human review</strong><span>Keep the final decision with the reviewer and persist the result.</span></li></ol><details class="case-observation"><summary>Observed AWS behaviour <span aria-hidden="true">+</span></summary><p class="decision-outcome">Observed in the AWS demonstration: Bedrock was invoked, its output was rejected, the labelled fallback was shown and human review was recorded.</p></details></div>
 <ol class="lifecycle"><li><strong>Model training</strong><time datetime="2026-10-27">27 Oct 2026</time></li><li><strong>AWS deployment</strong><time datetime="2026-10-27">27 Oct 2026</time></li><li><strong>Validation</strong><time datetime="2026-10-27">27 Oct 2026</time></li><li><strong>Evidence collection</strong><time datetime="2026-10-27">27 Oct 2026</time></li><li><strong>Teardown audit</strong><time datetime="2026-10-29">29 Oct 2026</time></li></ol>
   <p class="clinical-note">Research prototype. Not intended for clinical diagnosis.</p>
   <details class="technical-details"><summary>Technical notes, evidence and limitations <span aria-hidden="true">+</span></summary><div class="technical-body">
@@ -108,6 +108,6 @@
   <div class="closing-links"><a class="text-link" href="CardioCloud-case-study.pdf" download>Download the case study ↗</a><a class="text-link" href="diagrams/architecture-simplified.svg" download>Get the architecture SVG ↗</a></div>
 </div></section>
 </main>
-<footer class="site-footer wrap"><p>CardioCloud / An engineering case study</p><p>PTB-XL: Wagner et al. · <a href="https://doi.org/10.13026/kfzx-aw45">v1.0.3</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p><p>AWS icons and Inter font: <a href="ATTRIBUTION.md">attribution</a>.</p></footer>
+<footer class="site-footer wrap"><p><a href="../">← Roberto Martín / Portfolio</a></p><p>PTB-XL: Wagner et al. · <a href="https://doi.org/10.13026/kfzx-aw45">v1.0.3</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p><p>AWS icons and Inter font: <a href="ATTRIBUTION.md">attribution</a>.</p></footer>
 <dialog id="image-viewer" aria-labelledby="viewer-caption"><button class="viewer-close" aria-label="Close image">Close ×</button><img id="viewer-image" alt=""><p id="viewer-caption"></p></dialog>
 </body></html>

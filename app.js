@@ -321,6 +321,12 @@
      4. Two-Tier Projects Rendering, Interactive Galleries & Adaptive Grids
      ======================================================================== */
   function buildMediaStage(p, t, isEs) {
+    const interactive = window.PortfolioLab?.media(p, isEs);
+    if (interactive) return `<div class="project-interaction">${interactive}<details class="real-captures"><summary>${isEs ? "Ver capturas originales" : "View original captures"}<span aria-hidden="true">+</span></summary>${buildOriginalMediaStage(p,t,isEs)}</details></div>`;
+    return buildOriginalMediaStage(p,t,isEs);
+  }
+
+  function buildOriginalMediaStage(p, t, isEs) {
     const visLabel = isEs ? p.visibilityEs : p.visibilityEn;
     const badgeCls = p.isPrivate ? "media-status-pill is-private" : "media-status-pill";
     const chromeMeta = isEs ? p.chromeMetaEs : p.chromeMetaEn;
@@ -534,7 +540,8 @@
     const allCards = document.querySelectorAll("#projects .project-card");
     allCards.forEach((card) => {
       const cats = (card.dataset.categories || "").split(",");
-      const match = currentFilter === "all" || cats.includes(currentFilter);
+      const query = document.querySelector(".project-search input")?.value.trim().toLocaleLowerCase() || "";
+      const match = (currentFilter === "all" || cats.includes(currentFilter)) && (!query || card.textContent.toLocaleLowerCase().includes(query));
       card.hidden = !match;
       card.classList.remove("is-odd-tail", "is-solo-pair");
     });
@@ -558,6 +565,8 @@
     tierSecondary.hidden = visibleSecondary.length === 0;
   }
 
+  document.addEventListener("portfolio:search", syncTierVisibilityAndOddCards);
+
   function renderFilterButtons(t) {
     const filterContainer = document.getElementById("project-filters");
     if (!filterContainer) return;
@@ -579,10 +588,13 @@
 
         const applyUpdate = () => {
           currentFilter = nextFilter;
+          const archive = document.getElementById("secondary-fold");
+          if (archive && nextFilter !== "all") archive.open = true;
           filterContainer.querySelectorAll(".filter-chip").forEach((b) => {
             b.setAttribute("aria-pressed", String(b.dataset.filter === currentFilter));
           });
           syncTierVisibilityAndOddCards();
+          document.dispatchEvent(new Event("portfolio:filtered"));
         };
 
         const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -992,6 +1004,7 @@
 
     document.getElementById("footer-left").textContent = t.footer.left;
     document.getElementById("footer-right").textContent = t.footer.right;
+    document.dispatchEvent(new CustomEvent("portfolio:render", {detail: {lang: currentLang}}));
   }
 
   /* ========================================================================
