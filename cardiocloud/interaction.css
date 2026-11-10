@@ -1,0 +1,186 @@
+/* Shared visual language with the portfolio; original evidence is preserved. */
+.dark-opening {
+  background:
+    linear-gradient(120deg, #041b17ed, #102e29e8),
+    url("../assets/img/grainient-spectral-dark-50.jpg") center/cover;
+}
+.primary-link {
+  background: #b6f1d6;
+  color: #07372e;
+}
+.section,
+.role-section {
+  scroll-margin-top: 30px;
+}
+.signature-tools {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  max-width: 500px;
+}
+.signature-tools > span {
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: #9bbdb3;
+  margin-right: auto;
+}
+.signature-tools button {
+  border: 1px solid #ffffff26;
+  border-radius: 20px;
+  background: transparent;
+  padding: 8px 15px;
+  min-height: 36px;
+  font-size: 11px;
+  color: #c8e5d9;
+}
+.signature-tools button[aria-pressed="true"] {
+  background: #b6f1d6;
+  color: #063b2d;
+  border-color: #b6f1d6;
+}
+.role-fold summary,
+.case-observation summary {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 10px 0;
+  color: var(--teal);
+}
+.role-fold p {
+  font-size: 13px;
+  line-height: 1.8;
+  margin-top: 10px;
+}
+.role-fold[open] summary span,
+.case-observation[open] summary span {
+  transform: rotate(45deg);
+}
+.architecture-flow {
+  gap: 18px;
+}
+.architecture-flow > li {
+  border: 0 !important;
+  padding: 0 !important;
+}
+.architecture-flow > li:after {
+  display: none;
+}
+.architecture-layer {
+  border: 1px solid #c7d9d4;
+  border-radius: 18px;
+  background: #f8fbf9;
+  padding: 24px;
+  height: 100%;
+  transition:
+    background 0.3s,
+    border-color 0.3s;
+}
+.architecture-layer[open] {
+  background: #fff;
+  border-color: #38947d;
+}
+.architecture-layer summary {
+  cursor: pointer;
+  list-style: none;
+  position: relative;
+  padding-right: 20px;
+  min-height: 115px;
+}
+.architecture-layer summary::-webkit-details-marker {
+  display: none;
+}
+.architecture-layer .group-label {
+  display: block;
+  font-size: 10px;
+  line-height: 1.7;
+  margin-bottom: 17px;
+}
+.architecture-layer h3 {
+  font-size: 23px;
+  min-height: 0;
+}
+.layer-toggle {
+  position: absolute;
+  right: -5px;
+  top: -6px;
+  border-radius: 50%;
+  border: 1px solid #c7d9d4;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-content: center;
+  transition: transform 0.3s;
+}
+.architecture-layer[open] .layer-toggle {
+  transform: rotate(45deg);
+}
+.architecture-layer ul {
+  border-top: 1px solid #d9e5df;
+  padding-top: 20px;
+  margin-top: 0;
+}
+.architecture-layer ul li {
+  font-size: 12px;
+  gap: 9px;
+}
+.architecture-layer img {
+  width: 28px;
+  height: 28px;
+}
+.case-observation {
+  border-top: 1px solid #c9d3d5;
+  margin-top: 24px;
+}
+.case-observation summary {
+  font-size: 13px;
+  padding-top: 20px;
+}
+.case-observation .decision-outcome {
+  margin-top: 10px;
+}
+@media (max-width: 900px) {
+  .architecture-flow {
+    grid-template-columns: 1fr 1fr;
+  }
+  .architecture-layer summary {
+    min-height: 100px;
+  }
+}
+@media (max-width: 540px) {
+  .architecture-flow {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .architecture-layer {
+    padding: 22px;
+  }
+  .architecture-layer summary {
+    min-height: 78px;
+  }
+  .architecture-layer .group-label {
+    margin-bottom: 10px;
+  }
+  .architecture-layer h3 {
+    font-size: 24px;
+  }
+  .architecture-layer ul {
+    gap: 16px;
+  }
+  .signature-tools button {
+    min-height: 42px;
+  }
+  .role-fold summary {
+    min-height: 43px;
+    align-items: center;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .architecture-layer,
+  .layer-toggle {
+    transition: none;
+  }
+}

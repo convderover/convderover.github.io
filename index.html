@@ -27,6 +27,7 @@
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="lab.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -56,7 +57,11 @@
   }
   </script>
   <script src="data.js" defer></script>
-  <script src="app.js" defer></script>
+  <script src="design-data.js" defer></script>
+  <script src="assets/vendor/motion-14.12.0.js" defer></script>
+  <script src="cardiocloud/assets/ecg-trace.js" defer></script>
+  <script src="lab.js" defer></script>
+  <script src="app.js?v=20261110-lab" defer></script>
 </head>
 <body>
   <a id="skip-link" class="skip-link" href="#main-content">Saltar al contenido principal</a>
@@ -135,7 +140,8 @@
           </div>
 
           <!-- 2. High-contrast prominent full name -->
-          <h1 id="hero-name">Roberto Martín Gutiérrez</h1>
+          <p class="hero-overline">RESEARCH × CODE × HUMAN IMPACT</p>
+          <h1 id="hero-name">Roberto Martín<span>Gutiérrez.</span></h1>
 
           <!-- 3. Primary specialty + domain badges -->
           <p id="hero-specialty" class="hero-specialty">Ingeniero de IA Biomédica — Cardiología Computacional, Visión por Computador y Cloud MLOps</p>
@@ -202,18 +208,15 @@
           </div>
         </div>
 
-        <!-- LCP Candidate Portrait Frame: natural 720x1001 proportion, architectural framing -->
-        <aside class="portrait-stage" aria-label="Portrait">
-          <figure class="portrait-frame">
-            <div class="portrait-photo-wrap">
-              <img id="hero-portrait-img" src="assets/img/roberto-portrait.webp" width="720" height="1001" fetchpriority="high" alt="Retrato profesional de Roberto Martín Gutiérrez">
-            </div>
-            <figcaption class="portrait-meta-footer">
-              <span id="portrait-role-text" class="portrait-meta-primary">MSc Biomedical Engineering · UVa</span>
-              <span id="portrait-meta-text" class="portrait-meta-code">ORCID 0009-0004-5724-3502</span>
-            </figcaption>
-          </figure>
-        </aside>
+        <aside id="interactive-lab" class="interactive-lab" aria-label="Laboratorio interactivo"></aside>
+      </div>
+      <div class="container hero-bottom">
+        <div class="portrait-credit">
+          <img id="hero-portrait-img" src="assets/img/roberto-portrait.webp" width="64" height="64" alt="Roberto Martín Gutiérrez">
+          <div><span id="portrait-role-text">MSc Biomedical Engineering · UVa</span><span id="portrait-meta-text">ICICOR · HCUV</span></div>
+        </div>
+        <button type="button" class="lab-launch" data-open-playground><span class="live-dot"></span><span data-i18n="playground">Abrir playground</span><span aria-hidden="true">↗</span></button>
+        <a class="hero-scroll-cue" href="#projects"><span data-i18n="scroll">Explorar el trabajo</span> ↓</a>
       </div>
     </section>
 
@@ -248,13 +251,13 @@
         </div>
 
         <!-- Tier 2: Additional Engineering & Research (Compact 2-Column Adaptive Grid) -->
-        <div id="projects-tier-secondary" class="projects-tier projects-tier-secondary">
+        <details id="secondary-fold" class="archive-fold"><summary><span data-i18n="archive">Explorar otros 8 proyectos</span><span class="fold-plus" aria-hidden="true">+</span></summary><div id="projects-tier-secondary" class="projects-tier projects-tier-secondary">
           <div class="tier-heading">
             <span id="tier2-eyebrow" class="tier-eyebrow">Nivel 02 · Ingeniería e Investigación Adicional</span>
             <h3 id="tier2-title" class="tier-title">Visión 3D, privacidad hospitalaria, simulación CFD y señal fisiológica</h3>
           </div>
           <div id="secondary-projects-grid" class="secondary-projects-grid"></div>
-        </div>
+        </div></details>
       </div>
     </section>
 
@@ -278,7 +281,7 @@
 
             <div id="preprint-highlights" class="monograph-benchmarks"></div>
 
-            <p id="preprint-summary" class="monograph-abstract"></p>
+            <details class="editorial-fold"><summary><span data-i18n="methodology">Resumen y metodología</span><span aria-hidden="true">+</span></summary><p id="preprint-summary" class="monograph-abstract"></p></details>
 
             <div class="monograph-actions">
               <a id="preprint-primary-doi" class="card-btn card-btn-primary" href="https://doi.org/10.51224/SportRxiv.1131" target="_blank" rel="noopener noreferrer">Leer Preprint (DOI: 10.51224/SportRxiv.1131) ↗</a>
@@ -345,7 +348,7 @@
             <div id="certs-featured-list" class="certs-featured-list"></div>
 
             <h3 id="certs-additional-title" class="subcol-heading subcol-heading-secondary">Formación Especializada Completada</h3>
-            <div id="certs-additional-list" class="certs-ledger"></div>
+            <details class="editorial-fold"><summary><span data-i18n="allCredentials">Explorar formación adicional</span><span aria-hidden="true">+</span></summary><div id="certs-additional-list" class="certs-ledger"></div></details>
           </div>
         </div>
       </div>
@@ -400,6 +403,9 @@
     </div>
   </footer>
 
+  <dialog id="playground-dialog" aria-labelledby="playground-title"><div class="playground-bar"><div><span class="section-eyebrow">AFTER HOURS / LAB 04</span><h2 id="playground-title">Un pequeño universo.</h2></div><button type="button" class="dialog-close-btn" data-close-playground aria-label="Cerrar playground">×</button></div><canvas id="playground-canvas" aria-label="Constelación interactiva: toca para crear ondas"></canvas><div class="playground-controls"><button class="card-btn" data-universe="orbit" type="button">Órbitas</button><button class="card-btn" data-universe="heart" type="button">Corazón</button><button class="card-btn" data-universe="wave" type="button">Señal</button><span data-i18n="playHint">Toca el universo. Tiene memoria de unos segundos.</span></div></dialog>
+  <div id="lab-toast" role="status" aria-live="polite"></div>
+  <div class="reading-progress" aria-hidden="true"></div>
   <!-- Native Modal Dialog for Full Technical Specifications -->
   <dialog id="project-dialog" closedby="any" aria-labelledby="dialog-title">
     <div class="dialog-header">
