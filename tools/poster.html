@@ -1,0 +1,20 @@
+<!doctype html>
+<!-- Renders the hero poster (first frame, anatomy mode, transparent background).
+     Used by tools/render-poster.cjs; not linked from the site. -->
+<html><head><meta charset="utf-8"><style>html,body{margin:0;background:transparent}#stage{width:1200px;height:1200px;position:relative}canvas{width:100%;height:100%;display:block}</style></head>
+<body><div id="stage"><canvas id="c"></canvas></div>
+<script src="../cardiocloud/assets/ecg-trace.js"></script>
+<script type="module">
+  import { mountHeart } from "../assets/js/hero3d.js";
+  const params = new URLSearchParams(location.search);
+  window.ctrl = mountHeart(document.getElementById("stage"), {
+    canvas: document.getElementById("c"),
+    modelUrl: "../assets/models/heart.glb",
+    trace: window.CARDIOCLOUD_TRACE,
+    reducedMotion: true,
+    preserveDrawingBuffer: true,
+    theme: params.get("theme") || "dark",
+    onReady: () => { if (params.get("mode")) window.ctrl.setMode(params.get("mode")); setTimeout(() => (window.posterReady = true), 400); },
+    onError: (e) => (window.posterError = String(e)),
+  });
+</script></body></html>

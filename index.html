@@ -2,32 +2,41 @@
 <html lang="es">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="light dark">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark light">
+  <meta name="theme-color" content="#061110">
   <script>
-    try {
-      document.querySelector('meta[name="color-scheme"]').content = localStorage.getItem("color-scheme") ?? "light dark";
-    } catch {}
+    /* Theme before first paint: stored choice, else system preference. */
+    (function () {
+      var stored = null;
+      try { stored = localStorage.getItem("theme"); } catch (e) {}
+      var theme = stored === "light" || stored === "dark" ? stored : (matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+      document.documentElement.dataset.theme = theme;
+      document.documentElement.classList.add("js");
+      document.querySelector('meta[name="color-scheme"]').content = theme;
+      document.querySelector('meta[name="theme-color"]').content = theme === "light" ? "#f2eee5" : "#061110";
+    })();
   </script>
-  <title>Roberto Martín Gutiérrez — Ingeniero de IA Biomédica, Visión por Computador y Cloud MLOps</title>
-  <meta name="description" content="Portfolio profesional de Roberto Martín Gutiérrez: Ingeniero Biomédico e Investigador en IA Clínica, Cardiología Computacional (ICICOR · HCUV), Visión por Computador, LLMs y AWS MLOps.">
+  <title>Roberto Martín Gutiérrez — IA biomédica, visión por computador y software</title>
+  <meta name="description" content="Roberto Martín Gutiérrez, ingeniero biomédico: IA sanitaria, cardiología computacional (ICICOR · HCUV), visión por computador y software verificable.">
   <meta name="author" content="Roberto Martín Gutiérrez">
   <link rel="canonical" href="https://convderover.github.io/">
+  <link rel="alternate" hreflang="es" href="https://convderover.github.io/">
+  <link rel="alternate" hreflang="en" href="https://convderover.github.io/?lang=en">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://convderover.github.io/">
-  <meta property="og:title" content="Roberto Martín Gutiérrez — Biomedical AI, Computer Vision &amp; Cloud MLOps">
-  <meta property="og:description" content="Healthcare AI, Computational Cardiology (ICICOR · HCUV), 3D Computer Vision, Local LLMs/RAG, and AWS Cloud MLOps.">
-  <meta property="og:image" content="https://convderover.github.io/cardiocloud/hero.png">
-  <meta property="og:image:width" content="1920">
-  <meta property="og:image:height" content="1080">
+  <meta property="og:title" content="Roberto Martín Gutiérrez — Biomedical AI, computer vision & software">
+  <meta property="og:description" content="Healthcare AI, computational cardiology (ICICOR · HCUV), computer vision and verifiable software.">
+  <meta property="og:image" content="https://convderover.github.io/assets/img/og-cover.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Roberto Martín Gutiérrez — Biomedical AI, Computer Vision &amp; Cloud MLOps">
-  <meta name="twitter:description" content="Healthcare AI, Computational Cardiology (ICICOR · HCUV), 3D Computer Vision, Local LLMs/RAG, and AWS Cloud MLOps.">
-  <meta name="twitter:image" content="https://convderover.github.io/cardiocloud/hero.png">
+  <meta name="twitter:image" content="https://convderover.github.io/assets/img/og-cover.jpg">
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-  <link rel="preload" href="assets/fonts/Inter-Variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="lab.css">
+  <link rel="preload" href="assets/fonts/Inter-Variable-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/InstrumentSerif-Italic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/img/heart-poster.webp" as="image" type="image/webp" fetchpriority="high">
+  <link rel="stylesheet" href="site.css?v=3.0">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -35,19 +44,9 @@
     "name": "Roberto Martín Gutiérrez",
     "url": "https://convderover.github.io/",
     "jobTitle": "Biomedical AI & Computational Cardiology Research Engineer",
-    "affiliation": {
-      "@type": "Organization",
-      "name": "ICICOR · Hospital Clínico Universitario de Valladolid"
-    },
-    "alumniOf": {
-      "@type": "CollegeOrUniversity",
-      "name": "Universidad de Valladolid"
-    },
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Valladolid",
-      "addressCountry": "ES"
-    },
+    "affiliation": { "@type": "Organization", "name": "ICICOR · Hospital Clínico Universitario de Valladolid" },
+    "alumniOf": { "@type": "CollegeOrUniversity", "name": "Universidad de Valladolid" },
+    "address": { "@type": "PostalAddress", "addressLocality": "Valladolid", "addressCountry": "ES" },
     "email": "mailto:convderover@gmail.com",
     "sameAs": [
       "https://github.com/convderover",
@@ -56,381 +55,301 @@
     ]
   }
   </script>
-  <script src="data.js" defer></script>
-  <script src="design-data.js" defer></script>
-  <script src="assets/vendor/motion-14.12.0.js" defer></script>
+  <script src="data.js?v=3.0" defer></script>
+  <script src="design-data.js?v=3.0" defer></script>
   <script src="cardiocloud/assets/ecg-trace.js" defer></script>
-  <script src="lab.js" defer></script>
-  <script src="app.js?v=20261110-lab" defer></script>
+  <script src="lab.js?v=3.0" defer></script>
+  <script src="app.js?v=3.0" defer></script>
 </head>
 <body>
-  <a id="skip-link" class="skip-link" href="#main-content">Saltar al contenido principal</a>
+  <a class="skip-link" href="#main" data-i18n="skip">Saltar al contenido</a>
 
-  <!-- Sticky Navigation Header -->
   <header class="site-header" id="site-header">
-    <div class="container header-inner">
-      <a class="brand-mark" href="#top">
-        <img src="assets/img/favicon.svg" width="32" height="32" alt="">
-        <span>Roberto Martín</span>
-        <span class="brand-sub">AI · BIOMED</span>
+    <div class="shell header-inner">
+      <a class="brand" href="#top" aria-label="Roberto Martín — inicio" data-i18n-aria="brandAria">
+        <svg class="brand-mark" viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="9" fill="none" stroke="currentColor" stroke-opacity=".35"/><path d="M5 17h5l2-5 3.2 11L19 8l2.2 9H27" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="brand-name">Roberto Martín</span>
+        <span class="brand-tag mono">AI · BIOMED</span>
       </a>
 
-      <nav id="primary-nav" class="main-nav" aria-label="Navegación principal">
-        <a id="nav-projects" href="#projects">Proyectos</a>
-        <a id="nav-research" href="#research">Publicaciones</a>
-        <a id="nav-experience" href="#experience">Experiencia</a>
-        <a id="nav-stack" href="#stack">Tecnologías</a>
-        <a id="nav-credentials" href="#credentials">Certificados</a>
-        <a id="nav-contact" href="#contact">Contacto</a>
+      <nav class="main-nav" id="primary-nav" aria-label="Navegación principal" data-i18n-aria="navAria">
+        <a href="#work" data-i18n="navWork">Proyectos</a>
+        <a href="#research" data-i18n="navResearch">Investigación</a>
+        <a href="#path" data-i18n="navPath">Experiencia</a>
+        <a href="#stack" data-i18n="navStack">Tecnologías</a>
+        <a href="#learning" data-i18n="navLearning">Formación</a>
+        <a href="#contact" data-i18n="navContact">Contacto</a>
       </nav>
 
-      <div class="header-controls">
-        <button type="button" id="lang-toggle" class="ctrl-btn" aria-label="Switch language to English">EN</button>
-        <button type="button" id="theme-toggle" class="ctrl-btn ctrl-btn-icon" aria-label="Cambiar tema claro u oscuro">
-          <span class="theme-icon-sun" aria-hidden="true">
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
-          </span>
-          <span class="theme-icon-moon" aria-hidden="true">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-          </span>
+      <div class="header-actions">
+        <button type="button" class="icon-btn lang-btn" id="lang-toggle" aria-label="Switch to English"><span class="mono">EN</span></button>
+        <button type="button" class="icon-btn" id="theme-toggle" aria-label="Cambiar a tema claro">
+          <svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20.5 14.2A8.6 8.6 0 0 1 9.8 3.5a8.6 8.6 0 1 0 10.7 10.7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
         </button>
-        <a id="nav-cv-link" class="nav-cv-btn" href="assets/cv/Roberto_Martin_Gutierrez_CV_ES.pdf" download="Roberto_Martin_Gutierrez_CV_ES.pdf">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          <span id="nav-cv-text">Descargar CV (ES)</span>
+        <a class="pill-btn cv-btn" id="header-cv" href="assets/cv/Roberto_Martin_Gutierrez_CV_ES.pdf" download="Roberto_Martin_Gutierrez_CV_ES.pdf" aria-label="CV · descargar PDF" data-i18n-aria="cvAria">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 4v11m0 0 4.5-4.5M12 15l-4.5-4.5M5 19.5h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span data-i18n="cvShort">CV</span>
         </a>
-        <button type="button" id="mobile-menu-btn" class="ctrl-btn ctrl-btn-icon mobile-menu-btn" aria-expanded="false" aria-controls="mobile-nav-panel" aria-label="Abrir menú de navegación">
-          <svg class="icon-menu-bars" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
-          <svg class="icon-menu-close" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+        <button type="button" class="icon-btn menu-btn" id="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Abrir menú">
+          <span class="menu-lines" aria-hidden="true"><i></i><i></i></span>
         </button>
       </div>
     </div>
-
-    <!-- Responsive Mobile & Tablet Navigation Drawer -->
-    <nav id="mobile-nav-panel" class="mobile-nav-panel" aria-label="Navegación principal móvil" hidden>
-      <div class="container mobile-nav-inner">
-        <a id="mnav-projects" href="#projects">Proyectos</a>
-        <a id="mnav-research" href="#research">Publicaciones</a>
-        <a id="mnav-experience" href="#experience">Experiencia</a>
-        <a id="mnav-stack" href="#stack">Tecnologías</a>
-        <a id="mnav-credentials" href="#credentials">Certificados</a>
-        <a id="mnav-contact" href="#contact">Contacto</a>
-        <a id="mnav-cv-link" class="mobile-nav-cv" href="assets/cv/Roberto_Martin_Gutierrez_CV_ES.pdf" download="Roberto_Martin_Gutierrez_CV_ES.pdf">
-          <span id="mnav-cv-text">Descargar CV (ES)</span>
-        </a>
+    <nav class="mobile-menu" id="mobile-menu" aria-label="Navegación móvil" data-i18n-aria="navMobileAria" hidden>
+      <div class="shell">
+        <a href="#work"><span class="mono">01</span><span data-i18n="navWork">Proyectos</span></a>
+        <a href="#research"><span class="mono">02</span><span data-i18n="navResearch">Investigación</span></a>
+        <a href="#path"><span class="mono">03</span><span data-i18n="navPath">Experiencia</span></a>
+        <a href="#stack"><span class="mono">04</span><span data-i18n="navStack">Tecnologías</span></a>
+        <a href="#learning"><span class="mono">05</span><span data-i18n="navLearning">Formación</span></a>
+        <a href="#contact"><span class="mono">06</span><span data-i18n="navContact">Contacto</span></a>
+        <a class="mobile-menu-cv" data-cv-link href="assets/cv/Roberto_Martin_Gutierrez_CV_ES.pdf" download="Roberto_Martin_Gutierrez_CV_ES.pdf"><span class="mono">PDF</span><span data-i18n="cvDownload">Descargar CV</span></a>
       </div>
     </nav>
+    <div class="reading-progress" aria-hidden="true"><span></span></div>
   </header>
 
-  <main id="main-content">
-    <!-- Hero Section -->
-    <section id="top" class="hero" aria-labelledby="hero-name">
-      <div class="hero-grid-bg" aria-hidden="true"></div>
-      <div class="container hero-layout">
+  <main id="main">
+    <!-- ============================================================ HERO -->
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-backdrop" aria-hidden="true"></div>
+      <div class="shell hero-grid">
         <div class="hero-copy">
-          <!-- 1. Brief institutional identification -->
-          <div class="hero-meta-bar">
-            <span class="status-pill">
-              <span class="status-dot" aria-hidden="true"></span>
-              <span id="hero-institution-text">ICICOR · Hospital Clínico Universitario de Valladolid</span>
-            </span>
-            <span class="hero-location-pill">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              <span id="hero-location-text">Valladolid, España</span>
-            </span>
-          </div>
-
-          <!-- 2. High-contrast prominent full name -->
-          <p class="hero-overline">RESEARCH × CODE × HUMAN IMPACT</p>
-          <h1 id="hero-name">Roberto Martín<span>Gutiérrez.</span></h1>
-
-          <!-- 3. Primary specialty + domain badges -->
-          <p id="hero-specialty" class="hero-specialty">Ingeniero de IA Biomédica — Cardiología Computacional, Visión por Computador y Cloud MLOps</p>
-
-          <div id="hero-badges" class="hero-role-tags">
-            <span class="role-badge">AI Engineer</span>
-            <span class="role-badge role-badge-outline">IA Sanitaria &amp; Cardiología</span>
-            <span class="role-badge role-badge-outline">Computer Vision · LLMs · AWS</span>
-          </div>
-
-          <!-- 4. Controlled, readable description + 3 scannable technical pillars -->
-          <p id="hero-lead" class="hero-lead">
-            Ingeniero Biomédico y Máster por la <strong>Universidad de Valladolid (UVa)</strong>. Diseño, valido e integro sistemas de <strong>IA clínica local y en nube (AWS)</strong>, visión por computador, pipelines <strong>LLM/RAG</strong> y herramientas de software verificable.
-          </p>
-
-          <ul id="hero-pillars" class="hero-pillars" aria-label="Especialidades principales"></ul>
-
-          <!-- 5. Primary & secondary action buttons -->
+          <p class="kicker mono"><span class="live-dot" aria-hidden="true"></span><span data-i18n="heroKicker">ICICOR · Hospital Clínico Universitario de Valladolid</span></p>
+          <h1 id="hero-title" class="hero-name"><span>Roberto Martín</span> <span>Gutiérrez</span></h1>
+          <p class="hero-claim serif" data-i18n-html="heroClaim">De la <em>señal</em> al <em>sistema</em>.</p>
+          <p class="hero-lead" data-i18n="heroLead">Ingeniero biomédico. Construyo IA para imagen cardiaca, señales y visión por computador, y la convierto en software que se puede usar.</p>
           <div class="hero-actions">
-            <a id="hero-cta-primary" class="btn btn-primary" href="#projects">
-              <span id="hero-cta-primary-text">Explorar proyectos</span>
-              <svg class="btn-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </a>
-            <a id="hero-cv-link" class="btn btn-ghost-light" href="assets/cv/Roberto_Martin_Gutierrez_CV_ES.pdf" download="Roberto_Martin_Gutierrez_CV_ES.pdf">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>
-              <span id="hero-cv-text">Descargar CV en PDF</span>
-            </a>
+            <a class="pill-btn is-primary" href="#work"><span data-i18n="heroCta">Ver proyectos</span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 5v14m0 0 6-6m-6 6-6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <a class="pill-btn" data-cv-link href="assets/cv/Roberto_Martin_Gutierrez_CV_ES.pdf" download="Roberto_Martin_Gutierrez_CV_ES.pdf"><span data-i18n="heroCv">CV en PDF</span></a>
           </div>
-
-          <!-- 6. Organized secondary professional links -->
-          <div class="hero-links">
-            <a href="https://github.com/convderover" target="_blank" rel="noopener noreferrer">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.75 5.48.75 11.75c0 4.97 3.22 9.18 7.69 10.67.56.1.77-.24.77-.54v-1.91c-3.13.68-3.79-1.51-3.79-1.51-.51-1.3-1.25-1.64-1.25-1.64-1.02-.7.08-.69.08-.69 1.13.08 1.72 1.16 1.72 1.16 1 1.72 2.63 1.22 3.27.93.1-.73.39-1.22.71-1.5-2.5-.28-5.12-1.25-5.12-5.56 0-1.23.44-2.23 1.16-3.02-.12-.28-.5-1.43.11-2.98 0 0 .95-.3 3.1 1.15.9-.25 1.86-.38 2.82-.38.96 0 1.92.13 2.82.38 2.15-1.45 3.1-1.15 3.1-1.15.61 1.55.23 2.7.11 2.98.72.79 1.16 1.79 1.16 3.02 0 4.32-2.63 5.27-5.14 5.55.4.35.76 1.03.76 2.08v3.08c0 .3.2.65.78.54A11.26 11.26 0 0 0 23.25 11.75C23.25 5.48 18.27.5 12 .5z"/></svg>
-              <span>github.com/convderover</span>
-            </a>
-            <a href="https://www.linkedin.com/in/roberto-mart%C3%ADn-guti%C3%A9rrez-ingenier%C3%ADa-biom%C3%A9dica/" target="_blank" rel="noopener noreferrer">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
-              <span>LinkedIn</span>
-            </a>
-            <a href="https://orcid.org/0009-0004-5724-3502" target="_blank" rel="noopener noreferrer">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 9v7M8 6.5v.5M11.5 16V9h2.6a3.5 3.5 0 0 1 0 7h-2.6z"/></svg>
-              <span>ORCID 0009-0004-5724-3502</span>
-            </a>
-            <a href="mailto:convderover@gmail.com">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
-              <span>convderover@gmail.com</span>
-            </a>
-          </div>
-
-          <!-- Decorative Biomedical ECG Trace (single-pass draw on entry, never blinking) -->
-          <div class="hero-ecg-wrap" aria-hidden="true">
-            <svg class="hero-ecg-strip" viewBox="0 0 540 42" width="540" height="42" fill="none">
-              <defs>
-                <linearGradient id="ecg-grad" x1="0" y1="0" x2="540" y2="0" gradientUnits="userSpaceOnUse">
-                  <stop offset="0%" stop-color="#2dd4bf" stop-opacity="0.18"/>
-                  <stop offset="18%" stop-color="#2dd4bf" stop-opacity="0.95"/>
-                  <stop offset="82%" stop-color="#5eead4" stop-opacity="0.95"/>
-                  <stop offset="100%" stop-color="#2dd4bf" stop-opacity="0.12"/>
-                </linearGradient>
-              </defs>
-              <line x1="0" y1="25" x2="540" y2="25" stroke="#2dd4bf" stroke-opacity="0.14" stroke-dasharray="3 4"/>
-              <path class="hero-ecg-path" pathLength="1" d="M0 25 H92 L105 19 L115 25 H139 L147 31 L159 4 L170 38 L181 17 L192 25 H246 Q263 12 280 25 H382 L394 19 L404 25 H428 L436 31 L448 6 L459 37 L470 18 L481 25 H540" stroke="url(#ecg-grad)" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
+          <ul class="hero-links" aria-label="Perfiles" data-i18n-aria="profilesAria">
+            <li><a href="https://github.com/convderover" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/roberto-mart%C3%ADn-guti%C3%A9rrez-ingenier%C3%ADa-biom%C3%A9dica/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+            <li><a href="https://orcid.org/0009-0004-5724-3502" target="_blank" rel="noopener noreferrer">ORCID</a></li>
+          </ul>
         </div>
 
-        <aside id="interactive-lab" class="interactive-lab" aria-label="Laboratorio interactivo"></aside>
-      </div>
-      <div class="container hero-bottom">
-        <div class="portrait-credit">
-          <img id="hero-portrait-img" src="assets/img/roberto-portrait.webp" width="64" height="64" alt="Roberto Martín Gutiérrez">
-          <div><span id="portrait-role-text">MSc Biomedical Engineering · UVa</span><span id="portrait-meta-text">ICICOR · HCUV</span></div>
-        </div>
-        <button type="button" class="lab-launch" data-open-playground><span class="live-dot"></span><span data-i18n="playground">Abrir playground</span><span aria-hidden="true">↗</span></button>
-        <a class="hero-scroll-cue" href="#projects"><span data-i18n="scroll">Explorar el trabajo</span> ↓</a>
-      </div>
-    </section>
-
-    <!-- Key Verified Impact Metrics -->
-    <section id="metrics-section" class="metrics-strip" aria-label="Indicadores verificados de impacto">
-      <div class="container">
-        <div id="metrics-grid" class="metrics-grid"></div>
-      </div>
-    </section>
-
-    <!-- 01 / Projects Section (Two-Tier Visual Architecture) -->
-    <section id="projects" class="section" aria-labelledby="projects-title">
-      <div class="container">
-        <div class="section-header-row">
-          <div class="section-header">
-            <span id="projects-eyebrow" class="section-eyebrow">01 / Ingeniería e Investigación Aplicada</span>
-            <h2 id="projects-title">Proyectos destacados y sistemas desarrollados</h2>
-            <p id="projects-subtitle">Arquitecturas diseñadas extremo a extremo: desde plataformas hospitalarias aisladas y despliegues auditados con Terraform en AWS hasta herramientas estáticas para agentes de IA.</p>
+        <figure class="specimen" id="specimen" data-mode="anatomy" aria-labelledby="specimen-title">
+          <div class="specimen-head">
+            <p class="mono specimen-id"><span>SPECIMEN 01</span> <span id="specimen-title" data-i18n="specTitle">Corazón · modelo ilustrativo</span></p>
+            <p class="mono specimen-readout" aria-hidden="true"><span data-readout="az">AZ 018°</span><span data-readout="mode">A·01</span></p>
           </div>
-        </div>
-
-        <div id="project-filters" class="filter-bar" role="toolbar" aria-label="Filtrar proyectos por área técnica"></div>
-
-        <!-- Tier 1: Featured Work (CardioCloud Flagship + ECOCARDIA AI & Convity Showcase) -->
-        <div id="projects-tier-featured" class="projects-tier">
-          <div class="tier-heading">
-            <span id="tier1-eyebrow" class="tier-eyebrow">Nivel 01 · Trabajo Destacado</span>
-            <h3 id="tier1-title" class="tier-title">Sistemas principales y casos de estudio</h3>
+          <div class="specimen-stage" id="specimen-stage" tabindex="0" role="group" aria-roledescription="visor 3D" aria-describedby="specimen-help" aria-label="Modelo 3D ilustrativo de un corazón" data-i18n-aria="specAria">
+            <img class="specimen-poster" src="assets/img/heart-poster.webp" width="1200" height="1200" alt="" decoding="async" fetchpriority="high">
+            <canvas class="specimen-canvas" aria-hidden="true"></canvas>
+            <span class="stage-mark tl" aria-hidden="true"></span><span class="stage-mark tr" aria-hidden="true"></span><span class="stage-mark bl" aria-hidden="true"></span><span class="stage-mark br" aria-hidden="true"></span>
+            <p class="specimen-legend mono" aria-hidden="true"><span data-legend></span></p>
+            <p class="specimen-status mono" role="status" aria-live="polite"></p>
+            <p class="specimen-hint mono" aria-hidden="true"><span data-i18n="specHint">Arrastra para girar</span> ↔</p>
           </div>
-          <div id="featured-flagship-slot" class="featured-flagship-slot"></div>
-          <div id="featured-pair-grid" class="featured-pair-grid"></div>
-        </div>
-
-        <!-- Tier 2: Additional Engineering & Research (Compact 2-Column Adaptive Grid) -->
-        <details id="secondary-fold" class="archive-fold"><summary><span data-i18n="archive">Explorar otros 8 proyectos</span><span class="fold-plus" aria-hidden="true">+</span></summary><div id="projects-tier-secondary" class="projects-tier projects-tier-secondary">
-          <div class="tier-heading">
-            <span id="tier2-eyebrow" class="tier-eyebrow">Nivel 02 · Ingeniería e Investigación Adicional</span>
-            <h3 id="tier2-title" class="tier-title">Visión 3D, privacidad hospitalaria, simulación CFD y señal fisiológica</h3>
-          </div>
-          <div id="secondary-projects-grid" class="secondary-projects-grid"></div>
-        </div></details>
-      </div>
-    </section>
-
-    <!-- 02 / Scientific Publications & Clinical Trials -->
-    <section id="research" class="section section-alt deferred-section reveal-on-scroll" aria-labelledby="research-title">
-      <div class="container">
-        <div class="section-header">
-          <span id="research-eyebrow" class="section-eyebrow">02 / Ciencia Abierta e Investigación Clínica</span>
-          <h2 id="research-title">Publicaciones científicas y ensayos clínicos</h2>
-          <p id="research-subtitle">Investigación metodológica reproducible archivada bajo DOI junto a soporte técnico en ensayos cardiovasculares internacionales.</p>
-        </div>
-
-        <div class="research-editorial-layout">
-          <article class="publication-monograph">
-            <div class="monograph-masthead">
-              <span id="preprint-tag" class="project-category-tag">PREPRINT METODOLÓGICO · SPORTRXIV &amp; ZENODO · OCT 2026</span>
-              <span id="preprint-author-role" class="monograph-role-pill">Autor único</span>
+          <p class="visually-hidden" id="specimen-help" data-i18n="specHelp">Arrastra en horizontal o usa las flechas del teclado para girar el modelo. Los botones cambian la representación.</p>
+          <div class="specimen-controls">
+            <div class="segmented" role="group" aria-label="Representación del modelo" data-i18n-aria="specModesAria">
+              <span class="segmented-thumb" aria-hidden="true"></span>
+              <button type="button" data-mode="anatomy" aria-pressed="true"><span class="mono">01</span><span data-i18n="modeAnatomy">Anatomía</span></button>
+              <button type="button" data-mode="signal" aria-pressed="false"><span class="mono">02</span><span data-i18n="modeSignal">Señal</span></button>
+              <button type="button" data-mode="recon" aria-pressed="false"><span class="mono">03</span><span data-i18n="modeRecon">Reconstrucción</span></button>
             </div>
-            <h3 id="preprint-title">What can be measured from the broadcast? Validity of single-camera video for football-kick kinematics and swing-leg joint loads</h3>
-            <p id="preprint-authors" class="monograph-authors">Roberto Martín Gutiérrez · Universidad de Valladolid / Ciencia Abierta</p>
-
-            <div id="preprint-highlights" class="monograph-benchmarks"></div>
-
-            <details class="editorial-fold"><summary><span data-i18n="methodology">Resumen y metodología</span><span aria-hidden="true">+</span></summary><p id="preprint-summary" class="monograph-abstract"></p></details>
-
-            <div class="monograph-actions">
-              <a id="preprint-primary-doi" class="card-btn card-btn-primary" href="https://doi.org/10.51224/SportRxiv.1131" target="_blank" rel="noopener noreferrer">Leer Preprint (DOI: 10.51224/SportRxiv.1131) ↗</a>
-              <a id="preprint-zenodo-link" class="card-btn" href="https://doi.org/10.5281/zenodo.23439408" target="_blank" rel="noopener noreferrer">Código y Datos Zenodo ↗</a>
-              <a id="preprint-orcid-link" class="card-btn card-btn-quiet" href="https://orcid.org/0009-0004-5724-3502" target="_blank" rel="noopener noreferrer">Registro ORCID ↗</a>
-            </div>
-          </article>
-
-          <aside class="clinical-trials-ledger" aria-labelledby="trials-title">
-            <div class="ledger-header">
-              <span id="trials-tag" class="project-category-tag">ENSAYOS CLÍNICOS INTERNACIONALES · ICICOR / HCUV</span>
-              <h3 id="trials-title">Soporte de ingeniería e imagen en ensayos cardiovasculares TAVI</h3>
-              <p id="trials-intro" class="ledger-intro"></p>
-            </div>
-            <div id="trials-list" class="trial-ledger-rows"></div>
-          </aside>
-        </div>
-      </div>
-    </section>
-
-    <!-- 03 / Professional Experience -->
-    <section id="experience" class="section deferred-section reveal-on-scroll" aria-labelledby="exp-title">
-      <div class="container">
-        <div class="section-header">
-          <span id="exp-eyebrow" class="section-eyebrow">03 / Trayectoria Profesional</span>
-          <h2 id="exp-title">Experiencia en hospitales, liderazgo robótico e I+D</h2>
-          <p id="exp-subtitle"></p>
-        </div>
-
-        <div id="experience-timeline" class="timeline-editorial"></div>
-      </div>
-    </section>
-
-    <!-- 04 / Technical Stack -->
-    <section id="stack" class="section section-alt deferred-section reveal-on-scroll" aria-labelledby="stack-title">
-      <div class="container">
-        <div class="section-header">
-          <span id="stack-eyebrow" class="section-eyebrow">04 / Arquitectura y Herramientas</span>
-          <h2 id="stack-title">Stack tecnológico multidisciplinar</h2>
-          <p id="stack-subtitle"></p>
-        </div>
-
-        <div id="stack-grid" class="stack-matrix"></div>
-      </div>
-    </section>
-
-    <!-- 05 / Education & Certifications -->
-    <section id="credentials" class="section deferred-section reveal-on-scroll" aria-labelledby="cred-title">
-      <div class="container">
-        <div class="section-header">
-          <span id="cred-eyebrow" class="section-eyebrow">05 / Formación y Credenciales</span>
-          <h2 id="cred-title">Base académica y certificaciones verificadas</h2>
-          <p id="cred-subtitle"></p>
-        </div>
-
-        <div class="edu-certs-layout">
-          <div class="edu-column">
-            <h3 id="edu-col-title" class="subcol-heading">Formación Académica</h3>
-            <div id="education-list" class="edu-hierarchy"></div>
-          </div>
-
-          <div class="certs-column">
-            <h3 id="certs-featured-title" class="subcol-heading">Credenciales Destacadas (AWS Oct 2026 &amp; Práctica Clínica)</h3>
-            <div id="certs-featured-list" class="certs-featured-list"></div>
-
-            <h3 id="certs-additional-title" class="subcol-heading subcol-heading-secondary">Formación Especializada Completada</h3>
-            <details class="editorial-fold"><summary><span data-i18n="allCredentials">Explorar formación adicional</span><span aria-hidden="true">+</span></summary><div id="certs-additional-list" class="certs-ledger"></div></details>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 06 / Contact -->
-    <section id="contact" class="section deferred-section reveal-on-scroll" aria-labelledby="contact-title">
-      <div class="container">
-        <div class="contact-box">
-          <div class="contact-main">
-            <span id="contact-eyebrow" class="contact-eyebrow">06 / Contacto Directo</span>
-            <h2 id="contact-title">¿Hablamos sobre IA biomédica, visión por computador o ingeniería MLOps?</h2>
-            <p id="contact-desc"></p>
-
-            <div class="contact-cta-row">
-              <a id="contact-primary-email" class="btn btn-primary" href="mailto:convderover@gmail.com">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
-                <span id="contact-primary-email-text">Escribir a convderover@gmail.com</span>
-              </a>
-              <button type="button" id="copy-email-btn" class="btn btn-ghost-light">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                <span id="copy-email-text">Copiar correo</span>
+            <div class="specimen-tools">
+              <button type="button" class="icon-btn" data-specimen="pause" aria-pressed="false" aria-label="Pausar animación" data-i18n-aria="pauseAria">
+                <svg class="i-pause" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M8 5v14M16 5v14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+                <svg class="i-play" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M7 5.5v13l11-6.5z" fill="currentColor"/></svg>
               </button>
-              <span id="copy-feedback-pill" class="copy-feedback-pill" role="status" aria-live="polite"></span>
-            </div>
-
-            <div class="contact-cv-strip">
-              <span id="contact-cv-label" class="contact-cv-label">Currículum Vitae verificable (PDF sin teléfono):</span>
-              <div class="contact-cv-buttons">
-                <a class="contact-cv-chip" href="assets/cv/Roberto_Martin_Gutierrez_CV_ES.pdf" download="Roberto_Martin_Gutierrez_CV_ES.pdf">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                  <span id="cv-es-btn-text">Descargar CV (ES · PDF)</span>
-                </a>
-                <a class="contact-cv-chip" href="assets/cv/Roberto_Martin_Gutierrez_CV_EN.pdf" download="Roberto_Martin_Gutierrez_CV_EN.pdf">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                  <span id="cv-en-btn-text">Download Resume (EN · PDF)</span>
-                </a>
-              </div>
+              <button type="button" class="icon-btn" data-specimen="reset" aria-label="Restablecer vista" data-i18n-aria="resetAria">
+                <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3M4.5 4.5v4h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
             </div>
           </div>
+          <div class="ecg-strip">
+            <canvas class="ecg-strip-canvas" role="img" aria-label="Derivación II del registro público PTB-XL 00009" data-i18n-aria="ecgAria"></canvas>
+            <p class="mono ecg-strip-meta"><span>PTB-XL 00009 · II · 100 Hz</span><span class="ecg-bpm" data-bpm>61 lpm</span></p>
+          </div>
+          <figcaption class="specimen-caption" data-i18n="specCaption">Escultura procedural (Blender + Three.js), no anatomía de un paciente. El latido sigue los picos R de un ECG público.</figcaption>
+        </figure>
+      </div>
 
-          <div id="contact-channels" class="contact-channels"></div>
+      <div class="shell readouts" id="metrics" aria-label="Indicadores" data-i18n-aria="metricsAria"></div>
+    </section>
+
+    <!-- ============================================================ WORK -->
+    <section class="section work" id="work" aria-labelledby="work-title">
+      <div class="shell">
+        <header class="section-head">
+          <p class="section-index mono"><span>01</span><span data-i18n="workIndex">Proyectos</span></p>
+          <h2 id="work-title" class="section-title" data-i18n-html="workTitle">Ideas que <em>funcionan</em>.</h2>
+          <p class="section-deck" data-i18n="workDeck">Tres sistemas para explorar a fondo. Ocho más, a un toque.</p>
+        </header>
+
+        <div class="work-toolbar">
+          <label class="search">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <span class="visually-hidden" data-i18n="searchLabel">Buscar proyectos</span>
+            <input type="search" id="project-search" autocomplete="off" placeholder="Buscar: ECG, YOLO, Terraform…" data-i18n-placeholder="searchPlaceholder">
+          </label>
+          <div class="filters" id="project-filters" role="group" aria-label="Filtrar por área" data-i18n-aria="filtersAria"></div>
+          <p class="search-status mono" id="search-status" role="status" aria-live="polite"></p>
         </div>
+
+        <div class="cases" id="featured-cases"></div>
+
+        <div class="archive" id="archive">
+          <div class="archive-head">
+            <h3 class="mono" data-i18n="archiveTitle">Archivo · 08 proyectos</h3>
+            <p data-i18n="archiveDeck">Visión 3D, privacidad clínica, CFD, señal y LLMs locales.</p>
+          </div>
+          <ul class="archive-grid" id="archive-grid"></ul>
+        </div>
+        <p class="empty-state" id="empty-state" hidden data-i18n="emptyState">Sin coincidencias. Prueba otra palabra o quita el filtro.</p>
+      </div>
+    </section>
+
+    <!-- ============================================================ RESEARCH -->
+    <section class="section research" id="research" aria-labelledby="research-title">
+      <div class="shell">
+        <header class="section-head">
+          <p class="section-index mono"><span>02</span><span data-i18n="researchIndex">Investigación</span></p>
+          <h2 id="research-title" class="section-title" data-i18n-html="researchTitle">Preguntar. Medir. <em>Compartir.</em></h2>
+        </header>
+        <div class="research-layout">
+          <article class="paper" id="paper"></article>
+          <aside class="ledger" id="trials" aria-labelledby="trials-title"></aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ PATH -->
+    <section class="section path" id="path" aria-labelledby="path-title">
+      <div class="shell">
+        <header class="section-head">
+          <p class="section-index mono"><span>03</span><span data-i18n="pathIndex">Experiencia</span></p>
+          <h2 id="path-title" class="section-title" data-i18n-html="pathTitle">Entre el hospital <em>y el código</em>.</h2>
+        </header>
+        <div class="chronology" id="chronology"></div>
+      </div>
+    </section>
+
+    <!-- ============================================================ STACK -->
+    <section class="section stack" id="stack" aria-labelledby="stack-title">
+      <div class="shell">
+        <header class="section-head">
+          <p class="section-index mono"><span>04</span><span data-i18n="stackIndex">Tecnologías</span></p>
+          <h2 id="stack-title" class="section-title" data-i18n-html="stackTitle">Herramientas, <em>con propósito</em>.</h2>
+          <p class="section-deck" data-i18n="stackDeck">Toca una tecnología para ver en qué proyectos la he usado.</p>
+        </header>
+        <div class="toolbox" id="toolbox"></div>
+      </div>
+    </section>
+
+    <!-- ============================================================ LEARNING -->
+    <section class="section learning" id="learning" aria-labelledby="learning-title">
+      <div class="shell">
+        <header class="section-head">
+          <p class="section-index mono"><span>05</span><span data-i18n="learningIndex">Formación</span></p>
+          <h2 id="learning-title" class="section-title" data-i18n-html="learningTitle">Una base. <em>Muchas conexiones.</em></h2>
+        </header>
+        <div class="learning-layout">
+          <div class="degrees" id="degrees"></div>
+          <div class="certs" id="certs"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ CONTACT -->
+    <section class="section contact" id="contact" aria-labelledby="contact-title">
+      <div class="contact-glow" aria-hidden="true"></div>
+      <div class="shell">
+        <p class="section-index mono"><span>06</span><span data-i18n="contactIndex">Contacto</span></p>
+        <h2 id="contact-title" class="contact-title serif" data-i18n-html="contactTitle">¿Qué construimos <em>ahora</em>?</h2>
+        <p class="contact-deck" data-i18n="contactDeck">IA sanitaria, visión por computador o software clínico. Respondo personalmente.</p>
+        <div class="contact-layout">
+        <figure class="portrait" id="portrait">
+          <img src="assets/img/roberto-portrait.webp" width="720" height="1001" alt="Retrato de Roberto Martín Gutiérrez" data-i18n-alt="portraitAlt" loading="lazy" decoding="async">
+          <canvas class="edge-overlay" aria-hidden="true"></canvas>
+          <figcaption class="mono"><span>MSc Biomedical Engineering · UVa</span><span class="portrait-cv" aria-live="polite"></span></figcaption>
+        </figure>
+        <div class="contact-actions">
+          <a class="mail-cta" href="mailto:convderover@gmail.com">
+            <span class="mono mail-cta-label" data-i18n="mailLabel">Escribir</span>
+            <span class="mail-cta-address">convderover@gmail.com</span>
+            <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path d="M7 17 17 7m0 0H8.5M17 7v8.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <div class="contact-secondary">
+            <button type="button" class="pill-btn" id="copy-email"><span data-i18n="copyEmail">Copiar correo</span></button>
+            <a class="pill-btn" href="assets/cv/Roberto_Martin_Gutierrez_CV_ES.pdf" download="Roberto_Martin_Gutierrez_CV_ES.pdf" hreflang="es"><span class="mono">ES</span> <span data-i18n="cvEs">CV en español</span></a>
+            <a class="pill-btn" href="assets/cv/Roberto_Martin_Gutierrez_CV_EN.pdf" download="Roberto_Martin_Gutierrez_CV_EN.pdf" hreflang="en"><span class="mono">EN</span> <span>Résumé in English</span></a>
+          </div>
+        </div>
+        </div>
+        <ul class="channels" id="channels"></ul>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <div class="container footer-inner">
-      <span id="footer-left">© 2026 Roberto Martín Gutiérrez · Ingeniería Biomédica &amp; IA (Valladolid, España)</span>
-      <span id="footer-right">Sin rastreadores externos · Tipografía autoalojada · Listo para GitHub Pages</span>
+    <div class="shell footer-grid">
+      <svg class="footer-signature" viewBox="0 0 600 60" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M0 34H160l8-6 8 6h18l6 8 10-36 10 44 8-16h28q14-14 28 0h120l8-6 8 6h18l6 8 10-36 10 44 8-16h28q14-14 28 0H600"/></svg>
+      <p class="footer-name">Roberto Martín Gutiérrez</p>
+      <p class="footer-meta mono" data-i18n="footerMeta">Valladolid · 2026 · Sin rastreadores · Tipografías autoalojadas</p>
+      <p class="footer-credits"><a href="#credits-dialog" data-open-credits data-i18n="footerCredits">Créditos y recursos</a> · <button type="button" class="link-btn" data-open-playground data-i18n="footerLab">Laboratorio</button> · <a href="#top" data-i18n="backTop">Volver arriba ↑</a></p>
     </div>
   </footer>
 
-  <dialog id="playground-dialog" aria-labelledby="playground-title"><div class="playground-bar"><div><span class="section-eyebrow">AFTER HOURS / LAB 04</span><h2 id="playground-title">Un pequeño universo.</h2></div><button type="button" class="dialog-close-btn" data-close-playground aria-label="Cerrar playground">×</button></div><canvas id="playground-canvas" aria-label="Constelación interactiva: toca para crear ondas"></canvas><div class="playground-controls"><button class="card-btn" data-universe="orbit" type="button">Órbitas</button><button class="card-btn" data-universe="heart" type="button">Corazón</button><button class="card-btn" data-universe="wave" type="button">Señal</button><span data-i18n="playHint">Toca el universo. Tiene memoria de unos segundos.</span></div></dialog>
-  <div id="lab-toast" role="status" aria-live="polite"></div>
-  <div class="reading-progress" aria-hidden="true"></div>
-  <!-- Native Modal Dialog for Full Technical Specifications -->
-  <dialog id="project-dialog" closedby="any" aria-labelledby="dialog-title">
-    <div class="dialog-header">
-      <div>
-        <span id="dialog-category" class="project-category-tag"></span>
-        <h2 id="dialog-title"></h2>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- Full case study -->
+  <dialog class="sheet case-dialog" id="case-dialog" aria-labelledby="case-title">
+    <div class="sheet-bar">
+      <p class="mono" id="case-kicker"></p>
+      <div class="sheet-bar-actions">
+        <button type="button" class="icon-btn" data-case-step="-1" aria-label="Caso anterior" data-i18n-aria="prevCase"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button type="button" class="icon-btn" data-case-step="1" aria-label="Caso siguiente" data-i18n-aria="nextCase"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button type="button" class="icon-btn" data-close aria-label="Cerrar" data-i18n-aria="close"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
       </div>
-      <form method="dialog">
-        <button type="submit" id="dialog-close-btn" class="dialog-close-btn" autofocus aria-label="Cerrar ventana de detalles">×</button>
-      </form>
     </div>
-    <div id="dialog-body" class="dialog-content"></div>
+    <div class="sheet-body" id="case-body"></div>
   </dialog>
 
-  <!-- Native Lightbox Dialog for Enlarged Product & Scientific Captures -->
-  <dialog id="zoom-dialog" closedby="any" aria-labelledby="zoom-caption">
-    <div class="zoom-dialog-bar">
-      <p id="zoom-caption" class="zoom-caption"></p>
-      <form method="dialog">
-        <button type="submit" id="zoom-close-btn" class="dialog-close-btn" autofocus aria-label="Cerrar vista ampliada">×</button>
-      </form>
+  <!-- Image viewer -->
+  <dialog class="sheet zoom-dialog" id="zoom-dialog" aria-labelledby="zoom-caption">
+    <div class="sheet-bar">
+      <p class="mono" id="zoom-caption"></p>
+      <button type="button" class="icon-btn" data-close aria-label="Cerrar" data-i18n-aria="close"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
     </div>
-    <div class="zoom-dialog-stage">
-      <img id="zoom-img" src="assets/projects/cardiocloud-hero.webp" width="1920" height="1080" alt="" fetchpriority="low">
+    <div class="zoom-stage"><img id="zoom-img" alt=""></div>
+  </dialog>
+
+  <!-- Playground -->
+  <dialog class="sheet playground" id="playground" aria-labelledby="playground-title">
+    <div class="sheet-bar">
+      <div>
+        <p class="mono" data-i18n="labKicker">AFTER HOURS / LAB 04</p>
+        <h2 id="playground-title" class="serif" data-i18n="labTitle">Un pequeño universo.</h2>
+      </div>
+      <button type="button" class="icon-btn" data-close aria-label="Cerrar" data-i18n-aria="close"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
     </div>
+    <canvas id="playground-canvas" class="playground-canvas" tabindex="0" aria-label="Constelación interactiva: toca para crear ondas" data-i18n-aria="labCanvasAria"></canvas>
+    <div class="playground-controls">
+      <div class="segmented compact" role="group" aria-label="Universo" data-i18n-aria="labModesAria">
+        <button type="button" data-universe="orbit" aria-pressed="true" data-i18n="uOrbit">Órbitas</button>
+        <button type="button" data-universe="heart" aria-pressed="false" data-i18n="uHeart">Corazón</button>
+        <button type="button" data-universe="wave" aria-pressed="false" data-i18n="uWave">Señal</button>
+        <button type="button" data-universe="scan" aria-pressed="false" data-i18n="uScan">Escáner</button>
+        <button type="button" data-universe="pose" aria-pressed="false" data-i18n="uPose">Pose</button>
+      </div>
+      <p class="mono playground-hint" data-i18n="labHint">Toca el universo. Recuerda durante unos segundos.</p>
+    </div>
+    <div class="discoveries" id="discoveries"></div>
+  </dialog>
+
+  <!-- Credits -->
+  <dialog class="sheet credits-dialog" id="credits-dialog" aria-labelledby="credits-title">
+    <div class="sheet-bar">
+      <h2 id="credits-title" class="mono" data-i18n="creditsTitle">Créditos y recursos</h2>
+      <button type="button" class="icon-btn" data-close aria-label="Cerrar" data-i18n-aria="close"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+    </div>
+    <div class="sheet-body credits-body" id="credits-body"></div>
   </dialog>
 </body>
 </html>
