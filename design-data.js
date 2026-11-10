@@ -327,7 +327,7 @@
       ["Animación de interfaz", "Motion 14.12.0 (MIT), autoalojado."],
       ["Tipografías", "Inter, Instrument Serif y JetBrains Mono (SIL OFL 1.1), autoalojadas."],
       ["Texturas", "Grainient Freebies (Cold Ocean 22, Spectral Dark 50) como textura decorativa de baja frecuencia. Son previsualizaciones de 325 × 238 px, no originales de alta resolución."],
-      ["Lo que no se incluye", "Ningún código de MetalForge. Ningún modelo generado con Tripo: la API no era accesible desde el entorno de desarrollo."],
+      ["Lo que no se incluye", "Ningún código de MetalForge ni modelos generados con Tripo: el corazón es íntegramente procedural."],
     ],
     en: [
       ["Heart model", "Procedural sculpture made with a Blender (bpy 5.3) script in this repository: tools/blender/build_heart.py. Illustrative; not derived from patient data. Compressed with glTF-Transform (meshopt)."],
@@ -336,7 +336,7 @@
       ["Interface motion", "Motion 14.12.0 (MIT), self-hosted."],
       ["Typefaces", "Inter, Instrument Serif and JetBrains Mono (SIL OFL 1.1), self-hosted."],
       ["Textures", "Grainient Freebies (Cold Ocean 22, Spectral Dark 50) as a low-frequency decorative texture. They are 325 × 238 px previews, not high-resolution originals."],
-      ["Not included", "No MetalForge code. No Tripo-generated model: the API was not reachable from the development environment."],
+      ["Not included", "No MetalForge code and no Tripo-generated models: the heart is fully procedural."],
     ],
   };
 

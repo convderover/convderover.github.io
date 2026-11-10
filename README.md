@@ -70,8 +70,8 @@ The heart is an illustrative sculpture, labelled as such; it is not patient anat
 
 ## Credits
 
-three.js (MIT) · Motion 14.12.0 ([MIT](assets/vendor/MOTION-LICENSE.md)) · Inter, Instrument Serif, JetBrains Mono ([OFL](assets/fonts/)) · Grainient Freebies as low-frequency decorative texture ([attribution and license](assets/img/GRAINIENT-ATTRIBUTION.md); previews only, not high-resolution originals) · PTB-XL v1.0.3 (Wagner et al., PhysioNet, CC BY 4.0). No MetalForge code is included. No Tripo-generated model is included (see below).
+three.js (MIT) · Motion 14.12.0 ([MIT](assets/vendor/MOTION-LICENSE.md)) · Inter, Instrument Serif, JetBrains Mono ([OFL](assets/fonts/)) · Grainient Freebies as low-frequency decorative texture ([attribution and license](assets/img/GRAINIENT-ATTRIBUTION.md); previews only, not high-resolution originals) · PTB-XL v1.0.3 (Wagner et al., PhysioNet, CC BY 4.0). No MetalForge code is included. No Tripo-generated model is included.
 
-### Tripo (pending)
+### Tripo
 
-`tripo-cli` 0.11.2 was installed and `tripo doctor` run, but the API hosts (`openapi.tripo3d.ai`, `developers.tripo3d.ai`) were blocked by the development environment's network policy and no key was configured, so no credits were spent. The model slot is ready for a Tripo asset: generate it, run it through the same Blender/glTF-Transform steps and replace `assets/models/heart.glb` (the anatomy surface is the piece that would benefit most).
+`tripo-cli` 0.11.2 was installed and checked with `tripo doctor`, and API access was enabled, but no generation was run: the decision was not to spend credits. The heart is entirely procedural (Blender script in this repository). If a Tripo asset is ever wanted, it can go through the same Blender/glTF-Transform steps and replace `assets/models/heart.glb`.
