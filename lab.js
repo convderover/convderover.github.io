@@ -272,14 +272,8 @@
     });
 
     // ---- lazy 3D
-    const canWebGL = (() => {
-      try {
-        const c = document.createElement("canvas");
-        const ok = !!(window.WebGLRenderingContext && (c.getContext("webgl2") || c.getContext("webgl")));
-        c.getContext("webgl2")?.getExtension("WEBGL_lose_context")?.loseContext();
-        return ok;
-      } catch { return false; }
-    })();
+    // No probe context: one WebGL context in total. Mount failures fall back to the poster.
+    const canWebGL = !!window.WebGLRenderingContext;
     const saveData = navigator.connection?.saveData === true;
     const goStatic = (msg) => {
       fig.classList.remove("is-loading");
@@ -296,7 +290,7 @@
       status.textContent = `${C().specLoading} · 0%`;
       import("./assets/js/hero3d.js")
         .then(({ mountHeart }) => {
-          spec.ctrl = mountHeart(stage, {
+          try { spec.ctrl = mountHeart(stage, {
             canvas: $(".specimen-canvas", fig),
             modelUrl: "assets/models/heart.glb",
             trace: TRACE(),
@@ -332,7 +326,7 @@
               }
             },
             onTempo: (bpm) => onTempo(bpm),
-          });
+          }); } catch (err) { console.warn("[specimen] WebGL unavailable:", err?.message || err); goStatic(); }
         })
         .catch((err) => {
           console.warn("[specimen] module failed:", err);
@@ -340,10 +334,14 @@
         });
     };
     let onFrameT = 0;
+    const coarse = matchMedia("(pointer: coarse)").matches;
+    ["pointerdown", "focusin"].forEach((t) => stage.addEventListener(t, () => started || (document.readyState === "complete" && start()), { once: true }));
+    seg.addEventListener("click", () => started || start(), { once: true });
     const io = new IntersectionObserver((en) => {
       if (en.some((e) => e.isIntersecting)) {
         io.disconnect();
-        const go = () => (window.requestIdleCallback ? requestIdleCallback(start, { timeout: 1200 }) : setTimeout(start, 200));
+        // phones: give first paint and input priority, then upgrade the poster to 3D
+        const go = () => setTimeout(() => (window.requestIdleCallback ? requestIdleCallback(start, { timeout: 2000 }) : start()), coarse ? 1200 : 0);
         if (document.readyState === "complete") go();
         else addEventListener("load", go, { once: true });
       }
@@ -629,7 +627,7 @@
         c.moveTo(ox + 8 * sc, yC - 5 * d);
         c.lineTo(ox + 8 * sc, yC + 5 * d);
         c.stroke();
-        c.font = `${10 * d}px monospace`;
+        c.font = `${11 * d}px monospace`;
         c.fillStyle = "#fff1d6";
         c.fillText(tr("HVI · mm", "LVH · mm"), ox + 14 * sc, yC + 4 * d);
         c.fillStyle = "rgba(255,138,106,.95)";
@@ -664,7 +662,7 @@
     host.innerHTML = `
       <div class="demo-chrome mono"><span class="live"><span class="live-dot" aria-hidden="true"></span>CODE, MADE VISIBLE</span><span>STATIC · LOCAL</span></div>
       <div class="cv-split">
-        <div class="cv-code"><div class="cv-file mono"><span>formatName.js</span><span data-cv-ver></span></div><div class="cv-lines" role="list"></div></div>
+        <div class="cv-code"><div class="cv-file mono"><span>formatName.js</span><span data-cv-ver></span></div><div class="cv-lines"></div></div>
         <div class="cv-graph"><svg viewBox="0 0 260 270" role="img" aria-label="${tr("Grafo de flujo de control", "Control-flow graph")}"></svg></div>
       </div>
       <div class="demo-foot">
@@ -693,7 +691,7 @@
     const render = (ver) => {
       const v = V[ver];
       $("[data-cv-ver]", host).textContent = ver === "after" ? "+1 / −0" : "HEAD~1";
-      $(".cv-lines", host).innerHTML = v.lines.map(([txt, node, isNew]) => `<button type="button" role="listitem" class="cv-line${isNew ? " is-added" : ""}" data-node="${node}">${txt.replace(/&/g, "&amp;").replace(/</g, "&lt;")}</button>`).join("");
+      $(".cv-lines", host).innerHTML = v.lines.map(([txt, node, isNew]) => `<button type="button" class="cv-line${isNew ? " is-added" : ""}" data-node="${node}">${txt.replace(/&/g, "&amp;").replace(/</g, "&lt;")}</button>`).join("");
       const svg = $(".cv-graph svg", host);
       svg.innerHTML =
         v.edges.map(([dd, cls]) => `<path class="cfg-edge ${cls === "new" ? "is-new" : ""}" d="${dd}"/>`).join("") +
@@ -1052,7 +1050,8 @@
     initSpecimen();
     initPlayground();
     initVision();
-    initSignature();
+    if (M()) initSignature();
+    else document.addEventListener("portfolio:motion", initSignature, { once: true });
     try {
       console.log("%c♥ Specimen lab", "color:#6ff0c4;font:600 14px monospace", "\nType “lab” for the playground or “ecg” for monitor mode. Source: github.com/convderover");
     } catch {}

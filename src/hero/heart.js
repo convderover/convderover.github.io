@@ -490,15 +490,20 @@ export function mountHeart(host, options = {}) {
   loader.setMeshoptDecoder(MeshoptDecoder);
   loader.load(
     modelUrl,
-    (gltf) => {
+    async (gltf) => {
       if (destroyed) return;
       try {
         build(gltf.scene);
         resize();
+        // KHR_parallel_shader_compile where available: do not block the main thread on linking
+        const parallel = renderer.extensions.has("KHR_parallel_shader_compile");
+        if (parallel) { try { await renderer.compileAsync(scene, camera); } catch {} }
+        if (destroyed) return;
         renderFrame(performance.now(), true);
         firstFrame = true;
         onReady();
         start();
+        idle(prewarm);
       } catch (err) {
         onError(err);
       }
@@ -584,6 +589,27 @@ export function mountHeart(host, options = {}) {
       nodeDots.push(dot);
     }
 
+    heartBox = heartGeo.boundingBox.clone();
+    scan.min = heartBox.min.y;
+    scan.max = heartBox.max.y;
+    const box = heartBox;
+
+    // soft contact shadow, outside the rotating group
+    shadow = new Mesh(new PlaneGeometry(2.8, 1.2), shadowMat);
+    shadow.rotation.x = -Math.PI / 2;
+    shadow.position.y = box.min.y - 0.12;
+    scene.add(shadow);
+
+    setBlending();
+    setMode(mode, true);
+  }
+
+
+  /* Reconstruction geometry is built lazily (first use or idle time). */
+  let heartBox = null;
+  function ensureRecon() {
+    if (points || !heartSolid) return;
+    const heartGeo = heartSolid.geometry;
     // Reconstruction: surface samples + contour slices + measured frame + scan plane
     const sampler = new MeshSurfaceSampler(heartSolid).build();
     const n = lowPower ? 5200 : 9000;
@@ -601,36 +627,36 @@ export function mountHeart(host, options = {}) {
     points = new Points(pg, pointsMat);
     points.visible = false;
     points.renderOrder = 7;
-
-    const box = heartGeo.boundingBox.clone();
+    const box = heartBox.clone();
     const levels = [];
     const nLevels = 26;
     for (let i = 1; i < nLevels; i++) levels.push(box.min.y + ((box.max.y - box.min.y) * i) / nLevels);
     slices = new LineSegments(contourSlices(heartGeo, levels), linesMat);
     slices.visible = false;
     slices.renderOrder = 6;
-
     box.expandByScalar(0.06);
     frame = new LineSegments(specimenFrame(box), frameMat);
     frame.visible = false;
-
     const span = Math.max(box.max.x - box.min.x, box.max.z - box.min.z) * 1.25;
     scanPlane = new Mesh(new PlaneGeometry(span * 0.86, span * 0.86), planeMat);
     scanPlane.rotation.x = -Math.PI / 2;
     scanPlane.visible = false;
     scanPlane.renderOrder = 3;
     root.add(points, slices, frame, scanPlane);
-    scan.min = box.min.y;
-    scan.max = box.max.y;
+  }
 
-    // soft contact shadow, outside the rotating group
-    shadow = new Mesh(new PlaneGeometry(2.8, 1.2), shadowMat);
-    shadow.rotation.x = -Math.PI / 2;
-    shadow.position.y = box.min.y - 0.12;
-    scene.add(shadow);
-
-    setBlending();
-    setMode(mode, true);
+  const idle = (fn) => (window.requestIdleCallback ? requestIdleCallback(() => !destroyed && fn(), { timeout: 4000 }) : setTimeout(() => !destroyed && fn(), 1500));
+  /** Compile the signal/reconstruction shaders ahead of time so switching modes never stalls. */
+  function prewarm() {
+    ensureRecon();
+    const extra = [heartGlass, chambers, points, slices, frame, scanPlane, ...conduction.map((c) => c.mesh), ...nodeDots].filter(Boolean);
+    const was = extra.map((o) => o.visible);
+    extra.forEach((o) => (o.visible = true));
+    try {
+      if (renderer.extensions.has("KHR_parallel_shader_compile")) renderer.compileAsync(scene, camera).catch(() => {});
+      else renderer.compile(scene, camera);
+    } catch {}
+    extra.forEach((o, i) => (o.visible = was[i]));
   }
 
   /* ---- modes */
@@ -646,6 +672,7 @@ export function mountHeart(host, options = {}) {
     cam.el.set(v.el, dc);
     cam.dist.set(v.dist, dc);
     cam.ty.set(v.ty, dc);
+    if (next === "recon") ensureRecon();
     if (next === "recon" && scan.min !== undefined) {
       bandClock = 0;
       scan.set(scan.min - 0.05, 0);
@@ -861,7 +888,7 @@ export function mountHeart(host, options = {}) {
         d.visible = ws > 0.01;
         d.material.uniforms.uOpacity.value = ws * (0.5 + (conductionT >= 0 && conductionT < 0.12 ? 0.8 : 0));
       }
-      points.visible = slices.visible = frame.visible = scanPlane.visible = wr > 0.01;
+      if (points) points.visible = slices.visible = frame.visible = scanPlane.visible = wr > 0.01;
       pointsUniforms.uOpacity.value = wr;
       linesUniforms.uOpacity.value = wr * 0.62;
       frameUniforms.uOpacity.value = wr * 0.7;
@@ -872,9 +899,9 @@ export function mountHeart(host, options = {}) {
       const band = sweeping ? scan.value : scan.min + (scan.max - scan.min) * (0.5 + 0.5 * Math.cos(bandClock * 0.55));
       pointsUniforms.uReveal.value = reveal;
       pointsUniforms.uBand.value = band;
-      scanPlane.position.y = band;
+      if (scanPlane) scanPlane.position.y = band;
       planeUniforms.uOpacity.value = wr * 0.6;
-      bandY = scanPlane.position.y;
+      bandY = band;
       shadow.material.opacity = (palette.additive ? 1 : 0.55) * (wa * 0.9 + 0.25);
     }
 

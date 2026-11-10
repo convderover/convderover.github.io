@@ -25,7 +25,21 @@
   const ui = () => DATA.ui[state.lang];
   const ext = (url) => /^https?:/.test(url);
   const linkAttrs = (url) => (ext(url) ? ' target="_blank" rel="noopener noreferrer"' : "");
-  const motion = window.Motion;
+  // Motion (184 KB) is not needed for first paint: it is injected after `load`.
+  let motion = window.Motion;
+  function loadMotion() {
+    if (window.Motion || document.querySelector("script[data-motion]")) return;
+    const sc = document.createElement("script");
+    sc.src = "assets/vendor/motion-14.12.0.js";
+    sc.async = true;
+    sc.dataset.motion = "";
+    sc.onload = () => {
+      motion = window.Motion;
+      document.dispatchEvent(new CustomEvent("portfolio:motion"));
+      arm();
+    };
+    document.head.append(sc);
+  }
   const animate = (el, kf, opts = {}) => {
     if (!el || reduced.matches || !motion?.animate) return null;
     return motion.animate(el, kf, { duration: 0.5, ease: [0.22, 1, 0.36, 1], ...opts });
@@ -78,7 +92,7 @@
     $$("[data-i18n-placeholder]").forEach((el) => { const v = t[el.dataset.i18nPlaceholder]; if (typeof v === "string") el.placeholder = v; });
     const lb = $("#lang-toggle");
     lb.querySelector("span").textContent = t.langLabel;
-    lb.setAttribute("aria-label", t.langAria);
+    lb.setAttribute("aria-label", `${t.langLabel} · ${t.langAria}`);
     lb.title = t.langAria;
     lb.lang = isEs() ? "en" : "es";
     $$("#header-cv, [data-cv-link]").forEach((a) => { a.href = t.cvHref; a.setAttribute("download", t.cvFile); a.hreflang = state.lang; });
@@ -95,7 +109,12 @@
   }
 
   /* ------------------------------------------------------------ projects */
-  const projectText = (p) =>
+  const textCache = new Map();
+  const projectText = (p) => {
+    if (!textCache.has(p.id)) textCache.set(p.id, buildText(p));
+    return textCache.get(p.id);
+  };
+  const buildText = (p) =>
     norm([p.nameEs, p.subtitleEs, p.subtitleEn, p.briefEs, p.briefEn, p.summaryEs, p.summaryEn, p.categoryLabelEs, p.categoryLabelEn, ...(p.tagsEs || []), ...(p.tagsEn || []), ...(p.kpisEs || []), ...(p.kpisEn || []), ...(p.bulletsEs || []), ...(p.bulletsEn || [])].join(" "));
 
   function renderFilters() {
@@ -421,14 +440,15 @@
     if (ALIASES[key]) return ALIASES[key];
     return [key, ...key.split(/[\/&()·,]+/).map((s) => s.trim())].filter((s) => s.length > 1 && !STOP.has(s));
   }
+  const reCache = new Map();
   const hasTerm = (hay, term) => {
-    const e = term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    return new RegExp(`(^|[^a-z0-9])${e}`, "i").test(hay);
+    if (!reCache.has(term)) reCache.set(term, new RegExp(`(^|[^a-z0-9])${term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}`, "i"));
+    return reCache.get(term).test(hay);
   };
   function toolMatches(label) {
     const terms = toolTerms(label);
     const projects = DATA.projects.filter((p) => terms.some((w) => hasTerm(projectText(p), w)));
-    const roles = ui().experienceSection.items.map((it, i) => ({ it, i })).filter(({ it }) => terms.some((w) => hasTerm(norm(`${it.role} ${it.org} ${it.desc} ${it.location}`), w)));
+    const roles = ui().experienceSection.items.map((it, i) => ({ it, i, text: norm(`${it.role} ${it.org} ${it.desc} ${it.location}`) })).filter(({ text }) => terms.some((w) => hasTerm(text, w)));
     return { projects, roles };
   }
   function renderStack() {
@@ -648,5 +668,7 @@
       if ($("#case-dialog").open && state.caseId) openCase(state.caseId);
     });
     window.PortfolioApp = { toast, openCase, getLang: () => state.lang, T };
+    if (document.readyState === "complete") loadMotion();
+    else addEventListener("load", () => (window.requestIdleCallback ? requestIdleCallback(loadMotion, { timeout: 1500 }) : setTimeout(loadMotion, 300)), { once: true });
   });
 })();
