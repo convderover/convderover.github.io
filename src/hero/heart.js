@@ -61,12 +61,12 @@ const PALETTES = {
     apex: "#e0bca6",
     sheen: "#ffd2bd",
     coronary: "#ff6f4f",
-    glass: "#62f0c3",
-    chamber: "#2fb88e",
-    pulse: "#ffb08f",
-    path: "#3fdcae",
-    recon: "#78f5cf",
-    reconHot: "#fff3d1",
+    glass: "#e9e4da",
+    chamber: "#8f8a80",
+    pulse: "#ff6b4a",
+    path: "#cfc9bd",
+    recon: "#e9e4da",
+    reconHot: "#ff6b4a",
     additive: false, // normal blending keeps canvas alpha correct over the page
   },
   light: {
@@ -76,12 +76,12 @@ const PALETTES = {
     apex: "#dcb39b",
     sheen: "#ff8a66",
     coronary: "#d8462a",
-    glass: "#0e6f57",
-    chamber: "#1a8f6c",
-    pulse: "#d8462a",
-    path: "#0e7a5e",
-    recon: "#0f6f57",
-    reconHot: "#d8462a",
+    glass: "#2b2a27",
+    chamber: "#a39c90",
+    pulse: "#d9482b",
+    path: "#55524c",
+    recon: "#2b2a27",
+    reconHot: "#d9482b",
     additive: false,
   },
 };
@@ -358,7 +358,7 @@ export function mountHeart(host, options = {}) {
   const camera = new PerspectiveCamera(30, 1, 0.1, 60);
   const key = new DirectionalLight(0xfff1e0, 2.4);
   key.position.set(-3, 4, 5);
-  const rim = new DirectionalLight(0x7ff5d0, 2.2);
+  const rim = new DirectionalLight(0xfff4ea, 1.6);
   rim.position.set(4, 1.5, -4);
   const fill = new DirectionalLight(0xffb59c, 0.5);
   fill.position.set(2, -3, 3);
@@ -900,7 +900,7 @@ export function mountHeart(host, options = {}) {
       pointsUniforms.uReveal.value = reveal;
       pointsUniforms.uBand.value = band;
       if (scanPlane) scanPlane.position.y = band;
-      planeUniforms.uOpacity.value = wr * 0.6;
+      planeUniforms.uOpacity.value = wr * 0.35;
       bandY = band;
       shadow.material.opacity = (palette.additive ? 1 : 0.55) * (wa * 0.9 + 0.25);
     }

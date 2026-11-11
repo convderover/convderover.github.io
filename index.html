@@ -3,21 +3,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="color-scheme" content="dark light">
-  <meta name="theme-color" content="#061110">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#faf8f5">
   <script>
-    /* Theme before first paint: stored choice, else system preference. */
     (function () {
       var stored = null;
       try { stored = localStorage.getItem("theme"); } catch (e) {}
-      var theme = stored === "light" || stored === "dark" ? stored : (matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+      var theme = stored === "light" || stored === "dark" ? stored : (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
       document.documentElement.dataset.theme = theme;
       document.documentElement.classList.add("js");
       document.querySelector('meta[name="color-scheme"]').content = theme;
-      document.querySelector('meta[name="theme-color"]').content = theme === "light" ? "#f2eee5" : "#061110";
+      document.querySelector('meta[name="theme-color"]').content = theme === "light" ? "#faf8f5" : "#121211";
     })();
   </script>
-  <title>Roberto Martín Gutiérrez — IA biomédica, visión por computador y software</title>
+  <title>Roberto Martín Gutiérrez — Ingeniero biomédico · IA sanitaria</title>
   <meta name="description" content="Roberto Martín Gutiérrez, ingeniero biomédico: IA sanitaria, cardiología computacional (ICICOR · HCUV), visión por computador y software verificable.">
   <meta name="author" content="Roberto Martín Gutiérrez">
   <link rel="canonical" href="https://convderover.github.io/">
@@ -25,7 +24,7 @@
   <link rel="alternate" hreflang="en" href="https://convderover.github.io/?lang=en">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://convderover.github.io/">
-  <meta property="og:title" content="Roberto Martín Gutiérrez — Biomedical AI, computer vision & software">
+  <meta property="og:title" content="Roberto Martín Gutiérrez — Biomedical engineer · Healthcare AI">
   <meta property="og:description" content="Healthcare AI, computational cardiology (ICICOR · HCUV), computer vision and verifiable software.">
   <meta property="og:image" content="https://convderover.github.io/assets/img/og-cover.jpg">
   <meta property="og:image:width" content="1200">
@@ -34,9 +33,9 @@
   <meta name="twitter:image" content="https://convderover.github.io/assets/img/og-cover.jpg">
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="assets/fonts/Inter-Variable-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="assets/fonts/InstrumentSerif-Italic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/InstrumentSerif-Regular.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/img/heart-poster.webp" as="image" type="image/webp" fetchpriority="high">
-  <link rel="stylesheet" href="site.css?v=3.0">
+  <link rel="stylesheet" href="site.css?v=4.0">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -55,299 +54,192 @@
     ]
   }
   </script>
-  <script src="data.js?v=3.0" defer></script>
-  <script src="design-data.js?v=3.0" defer></script>
+  <script src="data.js?v=4.0" defer></script>
+  <script src="design-data.js?v=4.0" defer></script>
   <script src="cardiocloud/assets/ecg-trace.js" defer></script>
-  <script src="lab.js?v=3.0" defer></script>
-  <script src="app.js?v=3.0" defer></script>
+  <script src="lab.js?v=4.0" defer></script>
+  <script src="app.js?v=4.0" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main" data-i18n="skip">Saltar al contenido</a>
 
   <header class="site-header" id="site-header">
     <div class="shell header-inner">
-      <a class="brand" href="#top" aria-label="Roberto Martín — inicio" data-i18n-aria="brandAria">
-        <svg class="brand-mark" viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><rect x="1" y="1" width="30" height="30" rx="9" fill="none" stroke="currentColor" stroke-opacity=".35"/><path d="M5 17h5l2-5 3.2 11L19 8l2.2 9H27" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <span class="brand-name">Roberto Martín</span>
-        <span class="brand-tag mono">AI · BIOMED</span>
-      </a>
-
+      <a class="brand" href="#top" aria-label="Roberto Martín — inicio" data-i18n-aria="brandAria">Roberto Martín</a>
       <nav class="main-nav" id="primary-nav" aria-label="Navegación principal" data-i18n-aria="navAria">
-        <a href="#work" data-i18n="navWork">Proyectos</a>
-        <a href="#research" data-i18n="navResearch">Investigación</a>
-        <a href="#path" data-i18n="navPath">Experiencia</a>
-        <a href="#stack" data-i18n="navStack">Tecnologías</a>
-        <a href="#learning" data-i18n="navLearning">Formación</a>
+        <a href="#work" data-i18n="navWork">Trabajo</a>
+        <a href="#about" data-i18n="navAbout">Sobre mí</a>
         <a href="#contact" data-i18n="navContact">Contacto</a>
       </nav>
-
       <div class="header-actions">
-        <button type="button" class="icon-btn lang-btn" id="lang-toggle" aria-label="Switch to English"><span class="mono">EN</span></button>
-        <button type="button" class="icon-btn" id="theme-toggle" aria-label="Cambiar a tema claro">
-          <svg class="i-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-          <svg class="i-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M20.5 14.2A8.6 8.6 0 0 1 9.8 3.5a8.6 8.6 0 1 0 10.7 10.7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        <button type="button" class="text-btn" id="lang-toggle" aria-label="EN · Switch to English"><span>EN</span></button>
+        <button type="button" class="text-btn icon" id="theme-toggle" aria-label="Cambiar a tema oscuro">
+          <svg class="i-moon" viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M20.5 14.2A8.6 8.6 0 0 1 9.8 3.5a8.6 8.6 0 1 0 10.7 10.7Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          <svg class="i-sun" viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
         </button>
-        <a class="pill-btn cv-btn" id="header-cv" href="assets/cv/Roberto_Martin_Gutierrez_CV_ES.pdf" download="Roberto_Martin_Gutierrez_CV_ES.pdf" aria-label="CV · descargar PDF" data-i18n-aria="cvAria">
-          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 4v11m0 0 4.5-4.5M12 15l-4.5-4.5M5 19.5h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span data-i18n="cvShort">CV</span>
-        </a>
-        <button type="button" class="icon-btn menu-btn" id="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Abrir menú">
-          <span class="menu-lines" aria-hidden="true"><i></i><i></i></span>
-        </button>
+        <a class="text-btn cv" id="header-cv" href="assets/cv/Roberto_Martin_Gutierrez_CV_ES.pdf" download="Roberto_Martin_Gutierrez_CV_ES.pdf" aria-label="CV · descargar PDF" data-i18n-aria="cvAria">CV ↓</a>
       </div>
     </div>
-    <nav class="mobile-menu" id="mobile-menu" aria-label="Navegación móvil" data-i18n-aria="navMobileAria" hidden>
-      <div class="shell">
-        <a href="#work"><span class="mono">01</span><span data-i18n="navWork">Proyectos</span></a>
-        <a href="#research"><span class="mono">02</span><span data-i18n="navResearch">Investigación</span></a>
-        <a href="#path"><span class="mono">03</span><span data-i18n="navPath">Experiencia</span></a>
-        <a href="#stack"><span class="mono">04</span><span data-i18n="navStack">Tecnologías</span></a>
-        <a href="#learning"><span class="mono">05</span><span data-i18n="navLearning">Formación</span></a>
-        <a href="#contact"><span class="mono">06</span><span data-i18n="navContact">Contacto</span></a>
-        <a class="mobile-menu-cv" data-cv-link href="assets/cv/Roberto_Martin_Gutierrez_CV_ES.pdf" download="Roberto_Martin_Gutierrez_CV_ES.pdf"><span class="mono">PDF</span><span data-i18n="cvDownload">Descargar CV</span></a>
-      </div>
-    </nav>
     <div class="reading-progress" aria-hidden="true"><span></span></div>
   </header>
 
   <main id="main">
-    <!-- ============================================================ HERO -->
-    <section class="hero" id="top" aria-labelledby="hero-title">
-      <div class="hero-backdrop" aria-hidden="true"></div>
-      <div class="shell hero-grid">
-        <div class="hero-copy">
-          <p class="kicker mono"><span class="live-dot" aria-hidden="true"></span><span data-i18n="heroKicker">ICICOR · Hospital Clínico Universitario de Valladolid</span></p>
-          <h1 id="hero-title" class="hero-name"><span>Roberto Martín</span> <span>Gutiérrez</span></h1>
-          <p class="hero-claim serif" data-i18n-html="heroClaim">De la <em>señal</em> al <em>sistema</em>.</p>
-          <p class="hero-lead" data-i18n="heroLead">Ingeniero biomédico. Construyo IA para imagen cardiaca, señales y visión por computador, y la convierto en software que se puede usar.</p>
-          <div class="hero-actions">
-            <a class="pill-btn is-primary" href="#work"><span data-i18n="heroCta">Ver proyectos</span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 5v14m0 0 6-6m-6 6-6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-            <a class="pill-btn" data-cv-link href="assets/cv/Roberto_Martin_Gutierrez_CV_ES.pdf" download="Roberto_Martin_Gutierrez_CV_ES.pdf"><span data-i18n="heroCv">CV en PDF</span></a>
-          </div>
-          <ul class="hero-links" aria-label="Perfiles" data-i18n-aria="profilesAria">
-            <li><a href="https://github.com/convderover" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-            <li><a href="https://www.linkedin.com/in/roberto-mart%C3%ADn-guti%C3%A9rrez-ingenier%C3%ADa-biom%C3%A9dica/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-            <li><a href="https://orcid.org/0009-0004-5724-3502" target="_blank" rel="noopener noreferrer">ORCID</a></li>
-          </ul>
-        </div>
-
-        <figure class="specimen" id="specimen" data-mode="anatomy" aria-labelledby="specimen-title">
-          <div class="specimen-head">
-            <p class="mono specimen-id"><span>SPECIMEN 01</span> <span id="specimen-title" data-i18n="specTitle">Corazón · modelo ilustrativo</span></p>
-            <p class="mono specimen-readout" aria-hidden="true"><span data-readout="az">AZ 018°</span><span data-readout="mode">A·01</span></p>
-          </div>
-          <div class="specimen-stage" id="specimen-stage" tabindex="0" role="group" aria-roledescription="visor 3D" aria-describedby="specimen-help" aria-label="Modelo 3D ilustrativo de un corazón" data-i18n-aria="specAria">
-            <img class="specimen-poster" src="assets/img/heart-poster.webp" width="1200" height="1200" alt="" decoding="async" fetchpriority="high">
-            <canvas class="specimen-canvas" aria-hidden="true"></canvas>
-            <span class="stage-mark tl" aria-hidden="true"></span><span class="stage-mark tr" aria-hidden="true"></span><span class="stage-mark bl" aria-hidden="true"></span><span class="stage-mark br" aria-hidden="true"></span>
-            <p class="specimen-legend mono" aria-hidden="true"><span data-legend></span></p>
-            <p class="specimen-status mono" role="status" aria-live="polite"></p>
-            <p class="specimen-hint mono" aria-hidden="true"><span data-i18n="specHint">Arrastra para girar</span> ↔</p>
-          </div>
-          <p class="visually-hidden" id="specimen-help" data-i18n="specHelp">Arrastra en horizontal o usa las flechas del teclado para girar el modelo. Los botones cambian la representación.</p>
-          <div class="specimen-controls">
-            <div class="segmented" role="group" aria-label="Representación del modelo" data-i18n-aria="specModesAria">
-              <span class="segmented-thumb" aria-hidden="true"></span>
-              <button type="button" data-mode="anatomy" aria-pressed="true"><span class="mono">01</span><span data-i18n="modeAnatomy">Anatomía</span></button>
-              <button type="button" data-mode="signal" aria-pressed="false"><span class="mono">02</span><span data-i18n="modeSignal">Señal</span></button>
-              <button type="button" data-mode="recon" aria-pressed="false"><span class="mono">03</span><span data-i18n="modeRecon">Reconstrucción</span></button>
-            </div>
-            <div class="specimen-tools">
-              <button type="button" class="icon-btn" data-specimen="pause" aria-pressed="false" aria-label="Pausar animación" data-i18n-aria="pauseAria">
-                <svg class="i-pause" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M8 5v14M16 5v14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
-                <svg class="i-play" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M7 5.5v13l11-6.5z" fill="currentColor"/></svg>
-              </button>
-              <button type="button" class="icon-btn" data-specimen="reset" aria-label="Restablecer vista" data-i18n-aria="resetAria">
-                <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3M4.5 4.5v4h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </button>
-            </div>
-          </div>
-          <div class="ecg-strip">
-            <canvas class="ecg-strip-canvas" role="img" aria-label="Derivación II del registro público PTB-XL 00009" data-i18n-aria="ecgAria"></canvas>
-            <p class="mono ecg-strip-meta"><span>PTB-XL 00009 · II · 100 Hz</span><span class="ecg-bpm" data-bpm>61 lpm</span></p>
-          </div>
-          <figcaption class="specimen-caption" data-i18n="specCaption">Escultura procedural (Blender + Three.js), no anatomía de un paciente. El latido sigue los picos R de un ECG público.</figcaption>
-        </figure>
+    <!-- HERO -->
+    <section class="hero shell" id="top" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="hello" data-i18n="hello">Hola, soy</p>
+        <h1 id="hero-title" class="hero-name">Roberto Martín <span>Gutiérrez</span></h1>
+        <p class="hero-lead" data-i18n="heroLead">Ingeniero biomédico. Enseño a la IA a leer corazones —imágenes, señales, informes— y la convierto en herramientas que un hospital puede usar.</p>
+        <p class="hero-now"><span class="now-dot" aria-hidden="true"></span><span data-i18n="heroNow">Ahora en ICICOR · Hospital Clínico Universitario de Valladolid</span></p>
+        <p class="hero-links">
+          <a class="link-strong" href="#work" data-i18n="heroCta">Ver mi trabajo</a>
+          <a href="mailto:convderover@gmail.com" data-i18n="heroMail">Escribirme</a>
+          <a href="https://github.com/convderover" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="https://www.linkedin.com/in/roberto-mart%C3%ADn-guti%C3%A9rrez-ingenier%C3%ADa-biom%C3%A9dica/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </p>
       </div>
 
-      <div class="shell readouts" id="metrics" aria-label="Indicadores" data-i18n-aria="metricsAria"></div>
+      <figure class="specimen" id="specimen" data-mode="anatomy">
+        <div class="specimen-stage" id="specimen-stage" tabindex="0" role="group" aria-roledescription="visor 3D" aria-describedby="specimen-help" aria-label="Modelo 3D ilustrativo de un corazón" data-i18n-aria="specAria">
+          <img class="specimen-poster" src="assets/img/heart-poster.webp" width="1200" height="1200" alt="" decoding="async" fetchpriority="high">
+          <canvas class="specimen-canvas" aria-hidden="true"></canvas>
+          <p class="specimen-status" role="status" aria-live="polite"></p>
+        </div>
+        <p class="visually-hidden" id="specimen-help" data-i18n="specHelp">Arrastra en horizontal o usa las flechas del teclado para girar el modelo. Los botones cambian la representación.</p>
+        <span hidden data-readout="az"></span><span hidden data-readout="mode"></span><span hidden data-legend></span>
+        <div class="specimen-controls">
+          <div class="segmented" role="group" aria-label="Representación del modelo" data-i18n-aria="specModesAria">
+            <button type="button" data-mode="anatomy" aria-pressed="true" data-i18n="modeAnatomy">Anatomía</button>
+            <button type="button" data-mode="signal" aria-pressed="false" data-i18n="modeSignal">Señal</button>
+            <button type="button" data-mode="recon" aria-pressed="false" data-i18n="modeRecon">Reconstrucción</button>
+          </div>
+          <div class="specimen-tools">
+            <button type="button" class="text-btn icon" data-specimen="pause" aria-pressed="false" aria-label="Pausar animación" data-i18n-aria="pauseAria">
+              <svg class="i-pause" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M8 5v14M16 5v14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+              <svg class="i-play" viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="M7 5.5v13l11-6.5z" fill="currentColor"/></svg>
+            </button>
+            <button type="button" class="text-btn icon" data-specimen="reset" aria-label="Restablecer vista" data-i18n-aria="resetAria">
+              <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.2-5.3M4.5 4.5v4h4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="ecg-strip">
+          <canvas class="ecg-strip-canvas" role="img" aria-label="Derivación II del registro público PTB-XL 00009" data-i18n-aria="ecgAria"></canvas>
+        </div>
+        <figcaption class="specimen-caption"><span data-i18n="specCaption">Modelo ilustrativo. Late al ritmo de un ECG público (PTB-XL).</span> <span class="ecg-bpm" data-bpm></span></figcaption>
+      </figure>
     </section>
 
-    <!-- ============================================================ WORK -->
-    <section class="section work" id="work" aria-labelledby="work-title">
-      <div class="shell">
-        <header class="section-head">
-          <p class="section-index mono"><span>01</span><span data-i18n="workIndex">Proyectos</span></p>
-          <h2 id="work-title" class="section-title" data-i18n-html="workTitle">Ideas que <em>funcionan</em>.</h2>
-          <p class="section-deck" data-i18n="workDeck">Tres sistemas para explorar a fondo. Ocho más, a un toque.</p>
-        </header>
+    <!-- WORK -->
+    <section class="section shell" id="work" aria-labelledby="work-title">
+      <header class="section-head">
+        <h2 id="work-title" data-i18n="workTitle">Trabajo seleccionado</h2>
+      </header>
+      <div class="features" id="featured-cases"></div>
 
-        <div class="work-toolbar">
-          <label class="search">
-            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-            <span class="visually-hidden" data-i18n="searchLabel">Buscar proyectos</span>
-            <input type="search" id="project-search" autocomplete="off" placeholder="Buscar: ECG, YOLO, Terraform…" data-i18n-placeholder="searchPlaceholder">
-          </label>
+      <div class="more" id="archive">
+        <div class="more-head">
+          <h3 data-i18n="archiveTitle">Más proyectos</h3>
           <div class="filters" id="project-filters" role="group" aria-label="Filtrar por área" data-i18n-aria="filtersAria"></div>
-          <p class="search-status mono" id="search-status" role="status" aria-live="polite"></p>
         </div>
-
-        <div class="cases" id="featured-cases"></div>
-
-        <div class="archive" id="archive">
-          <div class="archive-head">
-            <h3 class="mono" data-i18n="archiveTitle">Archivo · 08 proyectos</h3>
-            <p data-i18n="archiveDeck">Visión 3D, privacidad clínica, CFD, señal y LLMs locales.</p>
-          </div>
-          <ul class="archive-grid" id="archive-grid"></ul>
-        </div>
-        <p class="empty-state" id="empty-state" hidden data-i18n="emptyState">Sin coincidencias. Prueba otra palabra o quita el filtro.</p>
+        <ul class="rows" id="archive-grid"></ul>
+        <p class="empty-state" id="empty-state" hidden data-i18n="emptyState">Nada en esta categoría.</p>
       </div>
     </section>
 
-    <!-- ============================================================ RESEARCH -->
-    <section class="section research" id="research" aria-labelledby="research-title">
-      <div class="shell">
-        <header class="section-head">
-          <p class="section-index mono"><span>02</span><span data-i18n="researchIndex">Investigación</span></p>
-          <h2 id="research-title" class="section-title" data-i18n-html="researchTitle">Preguntar. Medir. <em>Compartir.</em></h2>
-        </header>
-        <div class="research-layout">
-          <article class="paper" id="paper"></article>
-          <aside class="ledger" id="trials" aria-labelledby="trials-title"></aside>
-        </div>
-      </div>
+    <!-- RESEARCH -->
+    <section class="section shell narrow" id="research" aria-labelledby="research-title">
+      <header class="section-head"><h2 id="research-title" data-i18n="researchTitle">Investigación</h2></header>
+      <div id="paper"></div>
+      <div id="trials"></div>
     </section>
 
-    <!-- ============================================================ PATH -->
-    <section class="section path" id="path" aria-labelledby="path-title">
-      <div class="shell">
-        <header class="section-head">
-          <p class="section-index mono"><span>03</span><span data-i18n="pathIndex">Experiencia</span></p>
-          <h2 id="path-title" class="section-title" data-i18n-html="pathTitle">Entre el hospital <em>y el código</em>.</h2>
-        </header>
-        <div class="chronology" id="chronology"></div>
-      </div>
-    </section>
-
-    <!-- ============================================================ STACK -->
-    <section class="section stack" id="stack" aria-labelledby="stack-title">
-      <div class="shell">
-        <header class="section-head">
-          <p class="section-index mono"><span>04</span><span data-i18n="stackIndex">Tecnologías</span></p>
-          <h2 id="stack-title" class="section-title" data-i18n-html="stackTitle">Herramientas, <em>con propósito</em>.</h2>
-          <p class="section-deck" data-i18n="stackDeck">Toca una tecnología para ver en qué proyectos la he usado.</p>
-        </header>
-        <div class="toolbox" id="toolbox"></div>
-      </div>
-    </section>
-
-    <!-- ============================================================ LEARNING -->
-    <section class="section learning" id="learning" aria-labelledby="learning-title">
-      <div class="shell">
-        <header class="section-head">
-          <p class="section-index mono"><span>05</span><span data-i18n="learningIndex">Formación</span></p>
-          <h2 id="learning-title" class="section-title" data-i18n-html="learningTitle">Una base. <em>Muchas conexiones.</em></h2>
-        </header>
-        <div class="learning-layout">
-          <div class="degrees" id="degrees"></div>
-          <div class="certs" id="certs"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================================ CONTACT -->
-    <section class="section contact" id="contact" aria-labelledby="contact-title">
-      <div class="contact-glow" aria-hidden="true"></div>
-      <div class="shell">
-        <p class="section-index mono"><span>06</span><span data-i18n="contactIndex">Contacto</span></p>
-        <h2 id="contact-title" class="contact-title serif" data-i18n-html="contactTitle">¿Qué construimos <em>ahora</em>?</h2>
-        <p class="contact-deck" data-i18n="contactDeck">IA sanitaria, visión por computador o software clínico. Respondo personalmente.</p>
-        <div class="contact-layout">
+    <!-- ABOUT -->
+    <section class="section shell" id="about" aria-labelledby="about-title">
+      <header class="section-head"><h2 id="about-title" data-i18n="aboutTitle">Sobre mí</h2></header>
+      <div class="about-grid">
         <figure class="portrait" id="portrait">
           <img src="assets/img/roberto-portrait.webp" width="720" height="1001" alt="Retrato de Roberto Martín Gutiérrez" data-i18n-alt="portraitAlt" loading="lazy" decoding="async">
           <canvas class="edge-overlay" aria-hidden="true"></canvas>
-          <figcaption class="mono"><span>MSc Biomedical Engineering · UVa</span><span class="portrait-cv" aria-live="polite"></span></figcaption>
+          <figcaption class="portrait-cv" aria-live="polite"></figcaption>
         </figure>
-        <div class="contact-actions">
-          <a class="mail-cta" href="mailto:convderover@gmail.com">
-            <span class="mono mail-cta-label" data-i18n="mailLabel">Escribir</span>
-            <span class="mail-cta-address">convderover@gmail.com</span>
-            <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true"><path d="M7 17 17 7m0 0H8.5M17 7v8.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
-          <div class="contact-secondary">
-            <button type="button" class="pill-btn" id="copy-email"><span data-i18n="copyEmail">Copiar correo</span></button>
-            <a class="pill-btn" href="assets/cv/Roberto_Martin_Gutierrez_CV_ES.pdf" download="Roberto_Martin_Gutierrez_CV_ES.pdf" hreflang="es"><span class="mono">ES</span> <span data-i18n="cvEs">CV en español</span></a>
-            <a class="pill-btn" href="assets/cv/Roberto_Martin_Gutierrez_CV_EN.pdf" download="Roberto_Martin_Gutierrez_CV_EN.pdf" hreflang="en"><span class="mono">EN</span> <span>Résumé in English</span></a>
-          </div>
+        <div class="about-text">
+          <div class="bio" id="bio"></div>
+          <h3 data-i18n="pathTitle">Trayectoria</h3>
+          <div class="rows is-stacked" id="chronology"></div>
+          <h3 data-i18n="learningTitle">Formación</h3>
+          <div class="rows is-stacked" id="degrees"></div>
+          <div id="certs"></div>
+          <div id="toolbox"></div>
         </div>
-        </div>
-        <ul class="channels" id="channels"></ul>
       </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section shell contact" id="contact" aria-labelledby="contact-title">
+      <h2 id="contact-title" class="contact-title" data-i18n="contactTitle">¿Hablamos?</h2>
+      <p class="contact-deck" data-i18n="contactDeck">Para proyectos de IA sanitaria, investigación o simplemente saludar.</p>
+      <a class="mail" href="mailto:convderover@gmail.com">convderover@gmail.com</a>
+      <p class="contact-links">
+        <button type="button" class="link-btn" id="copy-email" data-i18n="copyEmail">Copiar correo</button>
+        <a href="assets/cv/Roberto_Martin_Gutierrez_CV_ES.pdf" download="Roberto_Martin_Gutierrez_CV_ES.pdf" hreflang="es" data-i18n="cvEs">CV en español</a>
+        <a href="assets/cv/Roberto_Martin_Gutierrez_CV_EN.pdf" download="Roberto_Martin_Gutierrez_CV_EN.pdf" hreflang="en">Résumé in English</a>
+        <a href="https://www.linkedin.com/in/roberto-mart%C3%ADn-guti%C3%A9rrez-ingenier%C3%ADa-biom%C3%A9dica/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://github.com/convderover" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://orcid.org/0009-0004-5724-3502" target="_blank" rel="noopener noreferrer">ORCID</a>
+      </p>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="shell footer-grid">
-      <svg class="footer-signature" viewBox="0 0 600 60" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M0 34H160l8-6 8 6h18l6 8 10-36 10 44 8-16h28q14-14 28 0h120l8-6 8 6h18l6 8 10-36 10 44 8-16h28q14-14 28 0H600"/></svg>
-      <p class="footer-name">Roberto Martín Gutiérrez</p>
-      <p class="footer-meta mono" data-i18n="footerMeta">Valladolid · 2026 · Sin rastreadores · Tipografías autoalojadas</p>
-      <p class="footer-credits"><a href="#credits-dialog" data-open-credits data-i18n="footerCredits">Créditos y recursos</a> · <button type="button" class="link-btn" data-open-playground data-i18n="footerLab">Laboratorio</button> · <a href="#top" data-i18n="backTop">Volver arriba ↑</a></p>
-    </div>
+  <footer class="site-footer shell">
+    <svg class="footer-signature" viewBox="0 0 600 40" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M0 24H250l6-4 6 4h14l4 6 8-26 8 32 6-12h20q10-10 20 0H600"/></svg>
+    <p><span>© 2026 Roberto Martín Gutiérrez · Valladolid</span><span class="footer-links"><a href="#credits-dialog" data-open-credits data-i18n="footerCredits">Créditos</a><button type="button" class="link-btn" data-open-playground data-i18n="footerLab">Laboratorio</button><a href="#top" data-i18n="backTop">Arriba ↑</a></span></p>
   </footer>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <!-- Full case study -->
   <dialog class="sheet case-dialog" id="case-dialog" aria-labelledby="case-title">
     <div class="sheet-bar">
-      <p class="mono" id="case-kicker"></p>
+      <p id="case-kicker"></p>
       <div class="sheet-bar-actions">
-        <button type="button" class="icon-btn" data-case-step="-1" aria-label="Caso anterior" data-i18n-aria="prevCase"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-        <button type="button" class="icon-btn" data-case-step="1" aria-label="Caso siguiente" data-i18n-aria="nextCase"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-        <button type="button" class="icon-btn" data-close aria-label="Cerrar" data-i18n-aria="close"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+        <button type="button" class="text-btn icon" data-case-step="-1" aria-label="Caso anterior" data-i18n-aria="prevCase">←</button>
+        <button type="button" class="text-btn icon" data-case-step="1" aria-label="Caso siguiente" data-i18n-aria="nextCase">→</button>
+        <button type="button" class="text-btn icon" data-close aria-label="Cerrar" data-i18n-aria="close">✕</button>
       </div>
     </div>
     <div class="sheet-body" id="case-body"></div>
   </dialog>
 
-  <!-- Image viewer -->
   <dialog class="sheet zoom-dialog" id="zoom-dialog" aria-labelledby="zoom-caption">
     <div class="sheet-bar">
-      <p class="mono" id="zoom-caption"></p>
-      <button type="button" class="icon-btn" data-close aria-label="Cerrar" data-i18n-aria="close"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+      <p id="zoom-caption"></p>
+      <button type="button" class="text-btn icon" data-close aria-label="Cerrar" data-i18n-aria="close">✕</button>
     </div>
     <div class="zoom-stage"><img id="zoom-img" alt=""></div>
   </dialog>
 
-  <!-- Playground -->
   <dialog class="sheet playground" id="playground" aria-labelledby="playground-title">
     <div class="sheet-bar">
-      <div>
-        <p class="mono" data-i18n="labKicker">AFTER HOURS / LAB 04</p>
-        <h2 id="playground-title" class="serif" data-i18n="labTitle">Un pequeño universo.</h2>
-      </div>
-      <button type="button" class="icon-btn" data-close aria-label="Cerrar" data-i18n-aria="close"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+      <h2 id="playground-title" data-i18n="labTitle">Un pequeño universo.</h2>
+      <button type="button" class="text-btn icon" data-close aria-label="Cerrar" data-i18n-aria="close">✕</button>
     </div>
     <canvas id="playground-canvas" class="playground-canvas" tabindex="0" aria-label="Constelación interactiva: toca para crear ondas" data-i18n-aria="labCanvasAria"></canvas>
     <div class="playground-controls">
-      <div class="segmented compact" role="group" aria-label="Universo" data-i18n-aria="labModesAria">
+      <div class="segmented" role="group" aria-label="Universo" data-i18n-aria="labModesAria">
         <button type="button" data-universe="orbit" aria-pressed="true" data-i18n="uOrbit">Órbitas</button>
         <button type="button" data-universe="heart" aria-pressed="false" data-i18n="uHeart">Corazón</button>
         <button type="button" data-universe="wave" aria-pressed="false" data-i18n="uWave">Señal</button>
         <button type="button" data-universe="scan" aria-pressed="false" data-i18n="uScan">Escáner</button>
         <button type="button" data-universe="pose" aria-pressed="false" data-i18n="uPose">Pose</button>
       </div>
-      <p class="mono playground-hint" data-i18n="labHint">Toca el universo. Recuerda durante unos segundos.</p>
     </div>
     <div class="discoveries" id="discoveries"></div>
   </dialog>
 
-  <!-- Credits -->
   <dialog class="sheet credits-dialog" id="credits-dialog" aria-labelledby="credits-title">
     <div class="sheet-bar">
-      <h2 id="credits-title" class="mono" data-i18n="creditsTitle">Créditos y recursos</h2>
-      <button type="button" class="icon-btn" data-close aria-label="Cerrar" data-i18n-aria="close"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+      <h2 id="credits-title" data-i18n="creditsTitle">Créditos</h2>
+      <button type="button" class="text-btn icon" data-close aria-label="Cerrar" data-i18n-aria="close">✕</button>
     </div>
     <div class="sheet-body credits-body" id="credits-body"></div>
   </dialog>

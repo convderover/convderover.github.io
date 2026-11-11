@@ -97,7 +97,6 @@
     c.strokeStyle = pal.line;
     c.lineWidth = 1;
     c.beginPath();
-    for (let s = 0; s <= 10; s++) { const x = Math.round((s / 10) * (w - 1)) + 0.5; c.moveTo(x, h - 6 * d); c.lineTo(x, h); }
     c.stroke();
     const min = -0.2, max = 0.7;
     const y = (v) => h - 8 * d - ((v - min) / (max - min)) * (h - 14 * d);
@@ -111,24 +110,24 @@
       c.stroke();
     };
     c.lineJoin = c.lineCap = "round";
-    c.strokeStyle = pal.accent;
-    c.lineWidth = 1.5 * d;
+    c.strokeStyle = pal.ink;
+    c.lineWidth = 1.3 * d;
     seg(0, cursor, 1);
     seg(Math.min(a.length, cursor + gap), a.length, 0.28);
     c.globalAlpha = 1;
     if (sweep) {
       const x = (cursor / (a.length - 1)) * w;
-      c.fillStyle = pal.signal;
+      c.fillStyle = pal.accent;
       c.beginPath();
-      c.arc(x, y(a[Math.min(cursor, a.length - 1)]), 2.6 * d, 0, Math.PI * 2);
+      c.arc(x, y(a[Math.min(cursor, a.length - 1)]), 3 * d, 0, Math.PI * 2);
       c.fill();
     }
   }
 
   /** Clinical ECG paper (25 mm/s look): minor 0.04 s, major 0.2 s. */
   function drawPaper(c, w, h, cols, light) {
-    const minor = light ? "rgba(207,69,39,.10)" : "rgba(111,240,196,.055)";
-    const major = light ? "rgba(207,69,39,.22)" : "rgba(111,240,196,.12)";
+    const minor = light ? "rgba(26,25,23,.05)" : "rgba(242,239,233,.05)";
+    const major = light ? "rgba(26,25,23,.1)" : "rgba(242,239,233,.1)";
     const step = w / cols;
     for (let k = 0; k < 2; k++) {
       c.strokeStyle = k ? major : minor;
@@ -188,7 +187,7 @@
       if (!spec.live) {
         // static fallback: the same three states, rendered offline from the scene
         const poster = $(".specimen-poster", fig);
-        poster.src = { anatomy: "assets/img/heart-poster.webp", signal: "assets/img/heart-signal.webp", recon: "assets/img/heart-recon.webp" }[m];
+        poster.src = { anatomy: "assets/img/heart-poster.webp", signal: `assets/img/heart-signal-${document.documentElement.dataset.theme === "dark" ? "dark" : "light"}.webp`, recon: `assets/img/heart-recon-${document.documentElement.dataset.theme === "dark" ? "dark" : "light"}.webp` }[m];
       }
       animate($("[data-legend]", fig), { opacity: [0, 1], x: [-6, 0] }, { duration: 0.4 });
     };
@@ -373,7 +372,6 @@
   function mountCardioCloud(host) {
     const card = host.closest(".case");
     host.innerHTML = `
-      <div class="demo-chrome mono"><span class="live"><span class="live-dot" aria-hidden="true"></span>SIGNAL EXPLORER</span><span>PTB-XL · 00009 · II</span></div>
       <div class="demo-stage">
         <canvas class="cc-canvas" role="img" aria-label="${tr("ECG público PTB-XL 00009, derivación II, 10 segundos", "Public PTB-XL 00009 ECG, lead II, 10 seconds")}"></canvas>
         <div class="cc-overlay cc-model" aria-hidden="true"><div class="cc-model-card">
@@ -415,7 +413,7 @@
       const cursor = reduced.matches ? a.length : Math.floor((((t - t0) * 0.1) % 1) * a.length);
       const y = (v) => h * 0.6 - v * h * 0.34 * gain;
       c.lineJoin = c.lineCap = "round";
-      c.strokeStyle = pal.light ? "#1d2a28" : "#a6ffe0";
+      c.strokeStyle = pal.ink;
       c.lineWidth = 1.6 * d;
       c.globalAlpha = step === 0 ? 1 : 0.35;
       c.beginPath();
@@ -425,14 +423,14 @@
         const x = (cursor / (a.length - 1)) * w;
         const g = c.createLinearGradient(x - 80 * d, 0, x, 0);
         g.addColorStop(0, "rgba(0,0,0,0)");
-        g.addColorStop(1, pal.light ? "rgba(207,69,39,.10)" : "rgba(111,240,196,.12)");
+        g.addColorStop(1, pal.light ? "rgba(217,72,43,.08)" : "rgba(255,107,74,.1)");
         c.fillStyle = g;
         c.fillRect(x - 80 * d, 0, 80 * d, h);
-        c.fillStyle = pal.signal;
+        c.fillStyle = pal.accent;
         c.fillRect(x, 0, 1.5 * d, h);
       }
       c.globalAlpha = 1;
-      c.fillStyle = pal.light ? "rgba(29,42,40,.7)" : "rgba(166,255,224,.7)";
+      c.fillStyle = pal.ink3;
       c.font = `${10 * d}px ${getComputedStyle(document.body).getPropertyValue("--font-mono") || "monospace"}`;
       c.fillText(`II · ×${gain} · 10 s`, 12 * d, 18 * d);
     };
@@ -494,10 +492,8 @@
   function mountEcocardia(host) {
     const card = host.closest(".case");
     host.innerHTML = `
-      <div class="demo-chrome mono"><span class="live"><span class="live-dot" aria-hidden="true"></span>LOCAL INTELLIGENCE</span><span>ON-PREMISE · LAN</span></div>
       <div class="demo-stage">
         <canvas class="eco-canvas" role="img" aria-label="${tr("Ecocardiograma apical de cuatro cámaras ilustrativo con capas de procesamiento", "Illustrative apical four-chamber echocardiogram with processing layers")}"></canvas>
-        <div class="eco-hud" aria-hidden="true"><span class="mono">DICOM · A4C</span><span class="mono" data-eco-tag>${tr("ILUSTRATIVO", "ILLUSTRATIVE")}</span></div>
         <div class="eco-review" aria-hidden="true">
           <span class="mono">${tr("REVISIÓN PROFESIONAL", "PROFESSIONAL REVIEW")}</span>
           <strong>${tr("Decisión trazable", "Traceable decision")}</strong>
@@ -507,7 +503,6 @@
       </div>
       <div class="steps" role="group" aria-label="${tr("Recorrido de la plataforma", "Platform walkthrough")}"></div>
       <p class="step-note" aria-live="polite"></p>
-      <ol class="pipeline" aria-label="${tr("Flujo", "Pipeline")}"><li>DICOM / Orthanc</li><li>${tr("Vista", "View")}</li><li>${tr("Modelos", "Models")}</li><li>${tr("Decisión", "Decision")}</li><li>RAG ${tr("local", "local")}</li></ol>
       <p class="demo-note mono">${tr("Visualización ilustrativa · sin datos de pacientes · el cálculo real ocurre en la red del hospital", "Illustrative visual · no patient data · real computation stays on the hospital network")}</p>`;
     const canvas = $(".eco-canvas", host);
     let step = 0;
@@ -523,7 +518,7 @@
       const { w, h, d } = z;
       const c = canvas.getContext("2d");
       const t = reduced.matches ? 0.6 : now;
-      c.fillStyle = "#030807";
+      c.fillStyle = "#0b0b0a";
       c.fillRect(0, 0, w, h);
       const ox = w / 2, oy = h * 0.06, R = h * 0.9;
       const a0 = Math.PI * 0.5 - 0.62, a1 = Math.PI * 0.5 + 0.62;
@@ -585,7 +580,7 @@
       });
       c.restore();
       // sector outline + depth ticks
-      c.strokeStyle = "rgba(168,201,189,.35)";
+      c.strokeStyle = "rgba(242,239,233,.3)";
       c.lineWidth = 1 * d;
       c.beginPath();
       c.moveTo(ox, oy);
@@ -602,17 +597,17 @@
       // processing overlays
       if (step >= 1) {
         const lv = pts[0];
-        c.strokeStyle = "#6ff0c4";
+        c.strokeStyle = "#f2efe9";
         c.lineWidth = 1.8 * d;
         c.setLineDash([]);
         c.beginPath();
         c.ellipse(lv.x, lv.y, lv.rx * 1.02, lv.ry * 1.02, lv.rot, 0, Math.PI * 2);
         c.stroke();
-        c.fillStyle = "rgba(111,240,196,.12)";
+        c.fillStyle = "rgba(242,239,233,.1)";
         c.fill();
         // ROI box
         c.setLineDash([5 * d, 4 * d]);
-        c.strokeStyle = "rgba(255,138,106,.9)";
+        c.strokeStyle = "rgba(255,107,74,.95)";
         c.strokeRect(ox - 70 * sc, oy + 40 * sc, 140 * sc, 220 * sc);
         c.setLineDash([]);
         // caliper across septum
@@ -630,15 +625,15 @@
         c.font = `${11 * d}px monospace`;
         c.fillStyle = "#fff1d6";
         c.fillText(tr("HVI · mm", "LVH · mm"), ox + 14 * sc, yC + 4 * d);
-        c.fillStyle = "rgba(255,138,106,.95)";
+        c.fillStyle = "rgba(255,107,74,.95)";
         c.fillText("ROI", ox - 68 * sc, oy + 36 * sc);
-        c.fillStyle = "#6ff0c4";
+        c.fillStyle = "#f2efe9";
         c.fillText(tr("VI", "LV"), lv.x - 6 * d, lv.y + 4 * d);
       }
       // ECG gating line at the bottom (real public trace, for timing context)
       const a = TRACE();
       if (a.length) {
-        c.strokeStyle = "rgba(111,240,196,.65)";
+        c.strokeStyle = "rgba(242,239,233,.6)";
         c.lineWidth = 1.2 * d;
         c.beginPath();
         const n = 300, off = Math.floor(((t * 30) % (a.length - n)));
@@ -652,85 +647,14 @@
       step = i;
       card.dataset.step = String(i);
       $(".step-note", host).textContent = notes[i];
-      $$(".pipeline li", host).forEach((li, j) => li.classList.toggle("is-on", pipeOn[i].includes(j)));
       draw(performance.now() / 1000);
     });
-  }
-
-  /* ---- Convity: code ↔ graph */
-  function mountConvity(host) {
-    host.innerHTML = `
-      <div class="demo-chrome mono"><span class="live"><span class="live-dot" aria-hidden="true"></span>CODE, MADE VISIBLE</span><span>STATIC · LOCAL</span></div>
-      <div class="cv-split">
-        <div class="cv-code"><div class="cv-file mono"><span>formatName.js</span><span data-cv-ver></span></div><div class="cv-lines"></div></div>
-        <div class="cv-graph"><svg viewBox="0 0 260 270" role="img" aria-label="${tr("Grafo de flujo de control", "Control-flow graph")}"></svg></div>
-      </div>
-      <div class="demo-foot">
-        <div class="segmented compact" role="group" aria-label="${tr("Versión del código", "Code version")}"><button type="button" data-ver="before" aria-pressed="true">${tr("Antes", "Before")}</button><button type="button" data-ver="after" aria-pressed="false">${tr("Después", "After")}</button></div>
-        <p class="cv-legend mono"><span><i class="k-new"></i>${tr("Nuevo", "New")}</span><span><i class="k-link"></i>${tr("Vinculado", "Linked")}</span></p>
-      </div>
-      <p class="step-note" aria-live="polite"></p>
-      <p class="demo-note mono">${tr("Ejemplo ilustrativo · el código se analiza, no se ejecuta", "Illustrative example · code is analysed, never executed")}</p>`;
-    const V = {
-      before: {
-        lines: [["function formatName(name) {", "start"], ["  return name.trim();", "trim"], ["}", "end"]],
-        nodes: [["start", 80, 18, 100, "start"], ["trim", 70, 112, 120, "name.trim()"], ["end", 95, 206, 70, "end"]],
-        edges: [["M130 46V112", ""], ["M130 140V206", ""]],
-        labels: [],
-        note: tr("Una función, una ruta. Toca una línea o un nodo para ver su relación.", "One function, one path. Tap a line or a node to see how they relate."),
-      },
-      after: {
-        lines: [["function formatName(name) {", "start"], ['  if (!name) return "Guest";', "check", true], ["  return name.trim();", "trim"], ["}", "end"]],
-        nodes: [["start", 80, 4, 100, "start"], ["check", 75, 70, 110, "!name ?", true], ["guest", 8, 146, 104, '"Guest"', true], ["trim", 148, 146, 104, "name.trim()"], ["end", 95, 228, 70, "end"]],
-        edges: [["M130 32V70", ""], ["M130 98V118H60V146", "new"], ["M130 98V118H200V146", ""], ["M60 174V200H130V228", "new"], ["M200 174V200H130V228", ""]],
-        labels: [[72, 114, tr("SÍ", "YES")], [188, 114, "NO"]],
-        note: tr("Un control nuevo y dos rutas visibles: el cambio se entiende en el grafo, no entre líneas.", "One new check, two visible paths: the change reads in the graph, not between lines."),
-      },
-    };
-    const lineMap = { check: ["check", "guest"] };
-    const render = (ver) => {
-      const v = V[ver];
-      $("[data-cv-ver]", host).textContent = ver === "after" ? "+1 / −0" : "HEAD~1";
-      $(".cv-lines", host).innerHTML = v.lines.map(([txt, node, isNew]) => `<button type="button" class="cv-line${isNew ? " is-added" : ""}" data-node="${node}">${txt.replace(/&/g, "&amp;").replace(/</g, "&lt;")}</button>`).join("");
-      const svg = $(".cv-graph svg", host);
-      svg.innerHTML =
-        v.edges.map(([dd, cls]) => `<path class="cfg-edge ${cls === "new" ? "is-new" : ""}" d="${dd}"/>`).join("") +
-        v.labels.map(([x, y, tx]) => `<text class="cfg-label" x="${x}" y="${y}">${tx}</text>`).join("") +
-        v.nodes.map(([id, x, y, w, label, isNew]) => `<g class="cfg-node${isNew ? " is-new" : ""}" data-node="${id}" tabindex="0" role="button" aria-label="${label}"><rect x="${x}" y="${y}" width="${w}" height="28" rx="8"/><text x="${x + w / 2}" y="${y + 15}">${label.replace(/"/g, "&quot;")}</text></g>`).join("");
-      $(".step-note", host).textContent = v.note;
-      animate(svg, { opacity: [0.2, 1], y: [8, 0] }, { duration: 0.5 });
-      animate($$(".cv-line.is-added", host), { backgroundColor: ["rgba(11,122,91,.35)", "rgba(11,122,91,.1)"] }, { duration: 1.1 });
-    };
-    const link = (node) => {
-      const nodes = lineMap[node] || [node];
-      $$(".cv-line", host).forEach((l) => l.classList.toggle("is-linked", nodes.includes(l.dataset.node) || (node === "guest" && l.dataset.node === "check")));
-      $$(".cfg-node", host).forEach((g) => g.classList.toggle("is-linked", nodes.includes(g.dataset.node)));
-    };
-    const clear = () => { $$(".is-linked", host).forEach((x) => x.classList.remove("is-linked")); };
-    host.addEventListener("pointerover", (e) => { const t = e.target.closest("[data-node]"); if (t && e.pointerType === "mouse") link(t.dataset.node); });
-    host.addEventListener("pointerout", (e) => { if (e.pointerType === "mouse" && !host.contains(e.relatedTarget?.closest?.("[data-node]"))) clear(); });
-    host.addEventListener("focusin", (e) => { const t = e.target.closest("[data-node]"); if (t) link(t.dataset.node); });
-    host.addEventListener("focusout", clear);
-    host.addEventListener("click", (e) => {
-      const t = e.target.closest("[data-node]");
-      if (t) link(t.dataset.node);
-      const b = e.target.closest("[data-ver]");
-      if (b) {
-        $$("[data-ver]", host).forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
-        render(b.dataset.ver);
-      }
-    });
-    host.addEventListener("keydown", (e) => {
-      const g = e.target.closest(".cfg-node");
-      if (g && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); link(g.dataset.node); }
-    });
-    render("before");
   }
 
   function mountDemos() {
     demoCleanup.forEach((f) => f());
     demoCleanup = [];
-    const map = { cardiocloud: mountCardioCloud, ecocardia: mountEcocardia, convity: mountConvity };
+    const map = { cardiocloud: mountCardioCloud, ecocardia: mountEcocardia };
     $$("[data-demo]").forEach((el) => map[el.dataset.demo]?.(el));
     $$(".case .segmented").forEach((s) => s.classList.add("no-thumb"));
   }
@@ -820,20 +744,20 @@
         frame++;
         const upto = Math.floor((H * frame) / total);
         c.clearRect(0, 0, z.w, z.h);
-        c.fillStyle = pal.light ? "#6ff0c4" : pal.accent;
+        c.fillStyle = "#f2efe9";
         for (let y = 1; y < Math.min(upto, H - 1); y++) for (let x = 1; x < W - 1; x++) {
           const m = mag[y * W + x] / maxM;
           if (m > 0.16) { c.globalAlpha = Math.min(1, m * 1.8); c.fillRect(x * sxk, y * syk, sxk, syk); }
         }
         c.globalAlpha = 1;
-        c.strokeStyle = "#ff8a6a";
+        c.strokeStyle = "#ff6b4a";
         c.lineWidth = 1.2 * z.d;
         corners.filter(([, y]) => y < upto).forEach(([x, y]) => {
           const X = x * sxk, Y = y * syk, r = 4 * z.d;
           c.beginPath(); c.moveTo(X - r, Y); c.lineTo(X + r, Y); c.moveTo(X, Y - r); c.lineTo(X, Y + r); c.stroke();
         });
         if (upto < H) {
-          c.fillStyle = "rgba(255,138,106,.8)";
+          c.fillStyle = "rgba(255,107,74,.8)";
           c.fillRect(0, upto * syk, z.w, 1.5 * z.d);
           requestAnimationFrame(step);
         } else running = false;
@@ -1053,7 +977,7 @@
     if (M()) initSignature();
     else document.addEventListener("portfolio:motion", initSignature, { once: true });
     try {
-      console.log("%c♥ Specimen lab", "color:#6ff0c4;font:600 14px monospace", "\nType “lab” for the playground or “ecg” for monitor mode. Source: github.com/convderover");
+      console.log("%c♥ Hola", "color:#d9482b;font:600 14px sans-serif", "\nType “lab” for the playground or “ecg” for monitor mode. Source: github.com/convderover");
     } catch {}
   });
 })();
