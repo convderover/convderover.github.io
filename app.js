@@ -226,6 +226,7 @@
     const c = ui().credentialsSection;
     $("#degrees").innerHTML =
       c.education.filter((e) => e.primary).map((e) => `<div class="row is-static"><span class="row-name">${esc(e.degree)}</span><span class="row-text">${esc(e.school)} · ${esc((e.badge.match(/[^·(]*\d[,.]\d+\s*\/\s*10/) || [e.badge])[0].trim())}</span><span class="row-meta">${esc(e.period)}</span></div>`).join("") +
+      `<div class="row is-static"><span class="row-name">${esc(t.honorsTitle)}</span><span class="row-text">${esc(t.honors)}</span><span class="row-meta"></span></div>` +
       `<div class="row is-static"><span class="row-name">${esc(t.languages)}</span><span class="row-text">${esc(c.languagesLine)}</span><span class="row-meta"></span></div>`;
     $("#certs").innerHTML = `<details class="fold"><summary>${esc(t.certsTitle(c.certs.length))}</summary><ul class="case-list">${c.certs
       .map((x) => `<li>${esc(x.title)} <span class="muted">— ${esc(x.issuer)}, ${esc(x.date)}</span>${x.url ? ` <a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(t.verify)}</a>` : ""}</li>`)
