@@ -6,7 +6,7 @@
 
 Bilingual (**Spanish / English**) portfolio of **Roberto Martín Gutiérrez** — Biomedical Engineer (MSc, University of Valladolid) and Research Engineer in Healthcare AI & Computational Cardiology (**ICICOR · Hospital Clínico Universitario de Valladolid**).
 
-![Portfolio v3 — Specimen lab](docs/portfolio-v3-preview.png)
+![Portfolio v4 — quiet paper](docs/portfolio-v4-preview.png)
 
 ## Live URLs
 
@@ -14,18 +14,15 @@ Bilingual (**Spanish / English**) portfolio of **Roberto Martín Gutiérrez** �
 - Portfolio (EN): https://convderover.github.io/?lang=en
 - CardioCloud case study (`v2-public`): https://convderover.github.io/cardiocloud/
 
-## v3 · "Specimen lab" (November 2026)
+## v4 · "Quiet paper" (November 2026)
 
-A contemporary biomedical laboratory: petrol night and ivory paper themes, phosphor emerald for measurement, arterial coral for signal. Inter, Instrument Serif and JetBrains Mono are self-hosted (SIL OFL).
+A radical simplification: warm paper, one ink, one accent (arterial vermilion), hairlines instead of cards, first-person copy and far less text. Informed by widely used minimalist personal sites on GitHub (BartoszJarocki/cv, pacocoursey/paco, antfu/antfu.me, bchiang7/v4, alshedivat/al-folio): one calm column, projects as a list, neutral palette, restrained motion. No code was copied from them.
 
-- **Specimen 01 (hero):** an illustrative procedural heart in three representations — *Anatomy* (porcelain surface, coronary arteries), *Signal* (glass shell, chambers and an illustrative SA → AV → His → Purkinje pulse) and *Reconstruction* (contour slices, surface point cloud and a scan sweep). Drag or arrow keys rotate it; vertical scrolling stays native on touch (`touch-action: pan-y`). Pause, reset, keyboard-operable mode switch. The beat follows the R-peaks of the public PTB-XL record 00009 (lead II, 100 Hz), shown unaltered in the strip below.
-- **Case rooms:** CardioCloud (signal → model → review, with the documented 0.918 Macro AUROC and per-class values), ECOCARDIA (image → processing → review, illustrative echo without patient data) and Convity (code ↔ control-flow graph linked in both directions). Eight more projects as archive plates; every case opens a full record with previous/next navigation.
-- **Research, experience, stack, education, contact:** editorial preprint with figure and copyable DOI, clinical-trial and grant ledger, chronology ruler, technology chips that list the real projects or roles using them, verifiable credentials, and a closing contact block.
-- **After hours:** type `lab` (or use the footer) for the playground (orbits, heart, signal, scanner, pose). Discoveries: tap the 3D heart in rhythm (sets the beat — works on phones), tap the portrait three times (Sobel edges + Harris corners computed in the browser), type `ecg` (monitor mode).
-
-![Before / after](docs/v3-before-after.png)
-
-A short walkthrough recording is in [`docs/portfolio-v3-walkthrough.mp4`](docs/portfolio-v3-walkthrough.mp4) (captured headless with software WebGL, so motion is slower than on a GPU).
+- **Hero:** "Hola, soy Roberto", one sentence, and the illustrative 3D heart floating on the page (Anatomy / Signal / Reconstruction, drag or arrow keys, pause, reset). It beats to the public PTB-XL ECG shown below it.
+- **Selected work:** three pieces only — CardioCloud, ECOCARDIA and the broadcast-kick biomechanics study — each with one sentence and one fact.
+- **More projects:** the other eight (Convity included) as a plain list; each row opens the full record.
+- **Research, about, contact:** preprint with DOI, clinical trials, a short bio next to the portrait, experience and education as rows, certificates and technologies folded away, and one email link.
+- **After hours:** type `lab` or use the footer link; tap the heart in rhythm, tap the portrait three times, type `ecg`.
 
 ## Architecture
 
@@ -34,10 +31,10 @@ Static HTML/CSS/JS served directly by GitHub Pages. **No build step is needed to
 | File | Role |
 | --- | --- |
 | `index.html` | Semantic structure; static text carries `data-i18n` keys |
-| `site.css` | Design system, both themes, all sections |
+| `site.css` | Design system (light-first, dark theme), all sections |
 | `data.js` | Original bilingual records (projects, results, links) — the single source for facts |
-| `design-data.js` | Short interface copy, project glyphs, credits |
-| `app.js` | Language, theme, navigation, search/filters, cases, dialogs, stack ↔ project links |
+| `design-data.js` | Short first-person copy, featured facts, credits |
+| `app.js` | Language, theme, navigation, filters, cases, dialogs |
 | `lab.js` | Specimen bootstrap (lazy 3D, posters, ECG strip), case demos, playground, discoveries |
 | `src/hero/heart.js` | Three.js r187 scene (source of `assets/js/hero3d.js`) |
 | `cardiocloud/v3.css` | Visual bridge for the CardioCloud page; its evidence is unchanged |
@@ -47,7 +44,7 @@ Static HTML/CSS/JS served directly by GitHub Pages. **No build step is needed to
 1. `tools/blender/build_heart.py` — Blender 5.3 (`bpy`) script: metaball myocardium with carved grooves, bevelled-curve great vessels, voxel-remesh union, Laplacian smoothing, decimation, region weights as vertex colours, BVH-snapped coronary tubes, internal chambers, conduction paths as node extras. Exports `assets/models/heart-source.glb`.
 2. `npm run build:model` — glTF-Transform: weld, reorder, quantize, **meshopt** → `assets/models/heart.glb` (987 KB → 216 KB).
 3. `npm run build` — esbuild bundles three.js (WebGLRenderer, GLTFLoader, meshopt decoder, RoomEnvironment, MeshSurfaceSampler) into `assets/js/hero3d.js` (≈672 KB, ≈174 KB gzip), loaded lazily after first paint.
-4. `node tools/render-poster.cjs` (with the local server running) renders the poster images from the live scene (`assets/img/heart-*.webp`). They are the first frame, the loading state and the no-WebGL fallback for all three modes.
+4. `node tools/render-poster.cjs` (with the local server running) renders the poster images from the live scene (`assets/img/heart-*.webp`, light and dark variants). They are the first frame, the loading state and the no-WebGL fallback for all three modes.
 
 ```bash
 npm install                    # dev tools only (three, esbuild, glTF-Transform, fonts)
@@ -62,7 +59,7 @@ npm run serve                  # http://127.0.0.1:8090
 - One WebGL context. Rendering stops off screen, in hidden tabs and when paused; geometries, materials and textures are disposed on teardown. DPR is capped (1.5 touch / 2 desktop) and lowered automatically if frames are slow. Reconstruction geometry and shaders are prepared lazily / in idle time.
 - Motion (MIT, self-hosted) loads after `load`; each animated property has one owner (Motion: DOM entries and control thumbs; three.js loop: camera, materials, beat; CSS: poster/canvas cross-fade).
 - `prefers-reduced-motion`: static 3D frame, no auto-rotation, no entry animations.
-- Lighthouse (mobile profile, measured in a GPU-less container): **84** performance with the 3D replaced by its poster (FCP 1.7 s, LCP 4.1 s, TBT 170 ms, CLS 0); **50** with WebGL emulated on the CPU (SwiftShader), where GPU work counts as main-thread time. Accessibility 100, best practices 100, SEO 100. Real-device figures on a GPU are expected to sit between both and remain to be measured.
+- Lighthouse was measured for v3 in a GPU-less container (84 mobile performance with the poster, accessibility 100). v4 ships less CSS and markup but has not been re-measured; real-device figures remain to be measured.
 
 ## Data honesty
 
