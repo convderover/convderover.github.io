@@ -495,11 +495,11 @@ window.PORTFOLIO_DATA = {
       contactSection: {
         eyebrow: "06 / Contacto Directo",
         title: "¿Hablamos sobre IA biomédica, visión por computador o ingeniería MLOps?",
-        desc: "Disponible para colaboraciones de investigación, proyectos de inteligencia artificial aplicada a salud y roles de ingeniería de IA o software clínico. Teléfono móvil omitido públicamente por privacidad.",
+        desc: "Disponible para colaboraciones de investigación, proyectos de inteligencia artificial aplicada a salud y roles de ingeniería de IA o software clínico. ",
         primaryEmailBtn: "Escribir a convderover@gmail.com",
         copyEmailBtn: "Copiar correo",
         copiedMsg: "¡Correo copiado al portapapeles!",
-        cvGroupLabel: "Currículum Vitae verificable (PDF sin teléfono):",
+        cvGroupLabel: "Currículum Vitae (PDF):",
         cvEsBtn: "Descargar CV (ES · PDF)",
         cvEnBtn: "Download Resume (EN · PDF)",
         channels: [
@@ -883,11 +883,11 @@ window.PORTFOLIO_DATA = {
       contactSection: {
         eyebrow: "06 / Direct Contact",
         title: "Let's connect on Biomedical AI, Computer Vision, or Cloud MLOps",
-        desc: "Open to research collaborations, healthcare AI engineering projects, and medical software roles. Mobile phone omitted publicly by privacy preference.",
+        desc: "Open to research collaborations, healthcare AI engineering projects, and medical software roles.",
         primaryEmailBtn: "Email convderover@gmail.com",
         copyEmailBtn: "Copy email",
         copiedMsg: "Email copied to clipboard!",
-        cvGroupLabel: "Verifiable Curriculum Vitae (phone-redacted PDF):",
+        cvGroupLabel: "Curriculum Vitae (PDF):",
         cvEsBtn: "Download Spanish CV (PDF)",
         cvEnBtn: "Download English Resume (PDF)",
         channels: [
